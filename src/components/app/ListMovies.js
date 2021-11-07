@@ -89,7 +89,7 @@ const ListMovies = ({content}) => {
 		)
 	}
 	return (
-		<section>
+		<section className="mb-2">
 			<Container fluid="md">
 				<h3 className="mb-3">
 					<Link to={`/contents/${content.categoryUrl}`} 
@@ -101,11 +101,11 @@ const ListMovies = ({content}) => {
 					<Slider {...settings}>
 						{listContent.map(item => {
 							return (
-								<MoviePoster 
-									key={item.id} 
-									content={item} 
-									categoryUrl={content.categoryUrl} 
-									typeContent={content.typeContent} />
+									<MoviePoster 
+										key={item.id} 
+										content={item} 
+										categoryUrl={content.categoryUrl} 
+										typeContent={content.typeContent} />
 							)
 						})}
 						<div className="movies__show-all show-all-movies rounded d-flex align-items-center justify-content-center">

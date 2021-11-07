@@ -8,6 +8,8 @@ import movieTrailer from 'movie-trailer';
 import ReactPlayer from "react-player";
 import Cinema from "../components/app/Cinema";
 import { Link } from "react-router-dom";
+import { SHOW_LOADER, HIDE_LOADER } from "../redux/types";
+import Loader from "../components/app/Loader";
 
 const OverviewMovie = () => {
 	const { id } = useParams();
@@ -16,6 +18,8 @@ const OverviewMovie = () => {
 	const content = useSelector(state => state.contents.search);
 	const favorite = useSelector(state => state.contents.favorite).filter(x => x.id === +id)[0];
 	const user = useSelector(state => state.user.user);
+	const loading = useSelector(state => state.app.loading);
+	const [prodCountries, setProdCountries] = useState([]);
 	const [videoURL, setVideoURL] = useState('');
 	const [tab, setTab] = useState('');
 	const [showTrailer, setShowTrailer] = useState(false);
@@ -26,6 +30,23 @@ const OverviewMovie = () => {
 		document.title = `${content.title} | Cinema HD`;
 	// eslint-disable-next-line
 	}, [content]);
+	useEffect(() => {
+		if(content.production_countries){
+			for (const counry of content.production_countries) {
+				setProdCountries(prevArray => [...prevArray, counry.iso_3166_1])
+			}
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+	useEffect(() => {
+		async function fetchData(){
+			if(tab === 'watch' && !videoURL){
+				await getMovieTrailer(content.title);
+			}
+		}
+		fetchData();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [tab])
 	function actionFavorite(){
 		favorite ? dispatch(removeFavorite(favorite,user)) : dispatch(uploadFavorite(content,user))
 	}
@@ -37,10 +58,15 @@ const OverviewMovie = () => {
 		let rminutes = Math.round(minutes);
 		return `${rhours} h ${rminutes} min`;
 	}
+	async function getMovieTrailer(title){
+		dispatch({type: SHOW_LOADER});
+		const res = await movieTrailer(title);
+		setVideoURL(res);
+		dispatch({type: HIDE_LOADER});
+	}
 	async function handlerTrailer(){
-		if(content.name){
-			const res = await movieTrailer(content.name);
-			setVideoURL(res);
+		if(content.title){
+			getMovieTrailer(content.title);
 		}
 		document.body.classList.add('overflow-hidden');
 		setShowTrailer(true);
@@ -52,9 +78,8 @@ const OverviewMovie = () => {
 	return (
 		<div className="my-2 overview overflow-hidden">
 			<div className='overview__img position-relative'>
-				<Link to={location.state.prevLocation} 
-					className="position-absolute overview__close border-0">
-					<FaTimes />
+				<Link to={location.state.prevLocation}>
+					<FaTimes className="position-absolute overview__close" />
 				</Link>
 				<Tabs
 					defaultActiveKey="about"
@@ -72,9 +97,22 @@ const OverviewMovie = () => {
 									<h2 className="mb-2 overview__title mb-4 inline-block">{content.title}</h2>
 									<h5 className="fst-italic">{content.tagline}</h5>
 									<p>{content.overview}</p>
-									<p className="mt-3">Release date: {dateRelease}</p>
-									<p>Average: {content.vote_average}</p>
-									<p>Time: {timeConvert(content.runtime)}</p>
+									<div className="mt-3">
+										<span className="overview__text-bold">Release date:</span>
+										<span className="white-70"> {dateRelease}</span>
+									</div>
+									<div>
+										<span className="overview__text-bold">Average:</span>
+										<span className="white-70"> {content.vote_average}</span>
+									</div>
+									<div>
+										<span className="overview__text-bold">Time:</span>
+										<span className="white-70"> {timeConvert(content.runtime)}</span>
+									</div>
+									<div className="mt-1">
+										<span className="overview__text-bold">Prodaction country:</span>
+										<span className="white-70"> {prodCountries.join(', ')}</span>
+									</div>
 								</div>
 								<div className="mt-2">
 									<button 
@@ -99,13 +137,14 @@ const OverviewMovie = () => {
 						<Container fluid="md" className="h-100">
 							<div className="d-flex justify-content-center align-items-center flex-column h-100 position-relative pt-4">
 								{/* can be another player depends on url */}
-								{!videoURL && 
+								{loading && <Loader/>}
+								{!loading && !videoURL && 
 									<div  className="overview__not-found overview-not-found">
 										<h2 className="overview-not-found__title">404</h2>
 										<h3 className="overview-not-found__text">Not found film</h3>
 									</div>
 								}
-								{videoURL && 
+								{!loading && videoURL && 
 									<ReactPlayer 
 										url={videoURL}
 										controls={true}

@@ -7,7 +7,7 @@ import banner from "../../img/banner.webp";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useDispatch } from "react-redux";
-import { uploadSettings } from "../../redux/actions"
+import { handelPaymentCard } from "../../redux/actions"
 import { useSelector } from "react-redux";
 
 const Payment = ({plan, user,settings}) => {
@@ -23,14 +23,14 @@ const Payment = ({plan, user,settings}) => {
 		// title for page
 		document.title = "Choose Plan | Cinema HD"
 	}, [])
-	async function handleSubmit(e){
+	function handleSubmit(e){
 		e.preventDefault();
 		let numberWithoutSpace = number.replace(/ /gi, '');
-		dispatch(uploadSettings({ ...settings ,card: {number:numberWithoutSpace,cvv,month,name}}, user, '/'))
+		dispatch(handelPaymentCard({ ...settings ,card: {number:numberWithoutSpace,cvv,month,name}}, user, '/'));
 	}
 	const back = e => {
 		e.stopPropagation();
-		history.push('/sing-up/platform');
+		history.goBack();
 	};
 	function handlerNumber(e){
 		setNumber(e.target.value?.replace(/ /gi, '').match(/.{1,4}/g)?.join(' '));
@@ -113,7 +113,7 @@ const Payment = ({plan, user,settings}) => {
 						<Button 
 							className="authentication__btn w-50 mt-3" 
 							type="submit"
-							disabled={loading}>
+							disabled={loading || !cvv || !name || !number}>
 							Start Membership  {loading ? <Spinner as='span' size="sm" animation="border" variant="light"/> : null}
 						</Button>
 					</div>

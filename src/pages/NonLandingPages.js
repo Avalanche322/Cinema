@@ -8,7 +8,8 @@ import Prevue from "./Prevue";
 import Favorite from "./Favorite";
 import Loader from "../components/app/Loader";
 import Movies from "./Movies";
-import Movie from "../pages/Movie"
+import Settings from "./Settings";
+import SearchPage from "./SearchPage";
 
 const NonLandingPages = () => {
 	const loading_bg = useSelector(state => state.app.loading_bg);
@@ -35,10 +36,10 @@ const NonLandingPages = () => {
 				/>
 				<Route path="/prevue" exact component={Prevue} />
 				<PrivateRoute path="/home" component={Home} />
+				<PrivateRoute path="/settings" component={Settings} />
 				<PrivateRoute path="/favorite" component={Favorite} />
 				<PrivateRoute path="/contents/:categoryUrl" component={Movies} />
-				<PrivateRoute path="/movie/:id" component={Movie} />
-				<PrivateRoute path="/tv/:id" component={Movie} />
+				<Route path="/search=:query" component={SearchPage} />
 			</main>
 			<Footer/>
 		</>

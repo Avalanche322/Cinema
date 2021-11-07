@@ -4,9 +4,14 @@ import banner from "../img/banner.webp";
 import tv from '../img/devices/tv.png';
 import iphone from '../img/devices/iphone.png';
 import imac from '../img/devices/imac.png';
+import tvVideo from '../video/our-story/our-story-tv.gif';
+import desktopVideo from '../video/our-story/our-story-desktop.gif';
+import mobileVideo from '../video/our-story/our-story-mobile.gif';
+import { useSelector } from "react-redux";
 
 const Prevue = () => {
 	document.title = `Cinema HD`;
+	const sing_in = useSelector(state => state.user.settings?.sing_in);
 	return (
 		<>
 			<section className="hero vh-100 d-flex align-items-center">
@@ -14,20 +19,28 @@ const Prevue = () => {
 					<div className="hero__body position-relative text-md-start text-center pt-5 pt-md-0">
 						<h1 className="hero__title">The greatest stories,<br/> all in one place.</h1>
 						<h2 className="hero__sub-title">Try 45 days for free</h2>
-						<div className="hero__block d-flex flex-column align-items-md-start align-items-center">
+						{!sing_in && <div className="hero__block d-flex flex-column align-items-md-start align-items-center">
 							<div className="d-md-flex my-3 hero__btns">
 								<div className="d-flex flex-column me-5 w-100 mb-3 mb-md-0">
 									<h3 className="hero__price mb-md-auto mb-3">€8,99 <span className="hero__sub-price white-80">| Month</span></h3>
-									<Link to="/sing-up" className="hero__btn rounded-3 text-uppercase text-center">Sing up now</Link>
+									<Link to="/sing-up" className="hero__btn py-3 rounded-3 text-uppercase text-center">Sing up now</Link>
 								</div>
 								<div className="d-flex flex-column w-100">
 									<h3 className="hero__price">€89,90 <span className="hero__sub-price white-80">| Year</span></h3>
 									<span className="hero__sub-price white-80 mb-3">Save over 15%.* </span>
-									<Link to="/sing-up" className="hero__btn rounded-3 text-uppercase text-center">Save on 12 months</Link>
+									<Link to="/sing-up" className="hero__btn py-3 rounded-3 text-uppercase text-center">Save on 12 months</Link>
 								</div>
 							</div>
 							<span className="white-80 hero__sub-price">*Savings compared to 12 months (107,88 €) of the monthly subscription price.</span>
-						</div>
+						</div>}
+						{sing_in && 
+							<div className="d-flex mt-3">
+								<Link 
+									to="/sing-up/platform" 
+									className="hero__btn py-2 px-4 rounded-3 text-uppercase text-center"
+								>Finish Sing Up
+								</Link>
+							</div>}
 					</div>
 				</Container>
 				<div className="_ibg position-absolute h-100 w-100 top-0 start-0">
@@ -42,8 +55,13 @@ const Prevue = () => {
 							<h2 className="our-stories__title">Watch on TV.</h2>
 							<p className="our-stories__text">Watch on Smart TV, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, etc.</p>
 						</div>
-						<div className="w-100">
-							<img className="img-fluid" src={tv} alt="tv" />
+						<div className="position-relative">
+							<div className="w-100 our-stories__img postion-relative">
+								<img className="img-fluid" src={tv} alt="tv" loading="lazy" />
+							</div>
+							<div className="position-absolute our-stories__video-tv">
+								<img className="img-fluid" src={tvVideo} alt="tv video" loading="lazy" />
+							</div>
 						</div>
 					</div>
 				</Container>
@@ -55,9 +73,14 @@ const Prevue = () => {
 							<h2 className="our-stories__title">Favorite content.</h2>
 							<p className="our-stories__text">Favorite your content and watch it will later to watch them anytime.</p>
 						</div>
-						<div className="w-100">
-							<div className="our-stories__img me-md-auto ms-md-0 mx-auto">
-								<img className="img-fluid" src={iphone} alt="iphone" />
+						<div className="w-100">				
+							<div className="position-relative">
+								<div className="our-stories__img our-stories__img-mobile me-md-auto ms-md-0 mx-auto">
+									<img className="img-fluid" src={iphone} alt="iphone" />
+								</div>
+								<div className="position-absolute our-stories__video-mobile">
+									<img className="img-fluid" src={mobileVideo} alt="mobile video" loading="lazy" />
+								</div>
 							</div>
 						</div>
 					</div>
@@ -71,8 +94,13 @@ const Prevue = () => {
 							<p className="our-stories__text">Watch movies and TV series without restrictions on your smartphone, tablet, laptop and TV at no extra charge.</p>
 						</div>
 						<div className="w-100">
-							<div>
-								<img className="img-fluid" src={imac} alt="imac" />
+							<div className="position-relative">
+								<div className="w-100 our-stories__img postion-relative">
+									<img className="img-fluid" src={imac} alt="imac" loading="lazy" />
+								</div>
+								<div className="position-absolute our-stories__video-desktop">
+									<img className="img-fluid" src={desktopVideo} alt="desktop video" loading="lazy" />
+								</div>
 							</div>
 						</div>
 					</div>

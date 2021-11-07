@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { unsubscribe } from "./redux/actions";
 import Message from "./components/app/Message";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
 	const dispatch = useDispatch();
@@ -26,6 +27,7 @@ function App() {
 				<Route exact path="/sing-up" component={SingUp} />
 				<Route exact path="/sing-up/platform" component={Platform} />
 				<Route exact path="/sing-up/payment" component={Payment} />
+				<Route exact path="/forgotPassword" component={ForgotPassword} />
 				<Route>
 					<NonLandingPages/>
 				</Route>

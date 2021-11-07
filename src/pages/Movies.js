@@ -4,7 +4,7 @@ import { useHistory, useParams } from "react-router";
 import { fetchMovies } from "../redux/actions";
 import MoviePoster from "../components/app/MoviePoster";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { memo, useState } from "react";
+import { memo, useState, Fragment } from "react";
 import { useEffect } from "react";
 import Loader from "../components/app/Loader";
 import PrivateRoute from "../components/PrivateRoute";
@@ -46,25 +46,24 @@ const Movies = () => {
 				>
 					{dataContent.map(item => {
 						return (
-							<MoviePoster 
-								key={item.id} 
-								content={item}
-								typeContent={content.typeContent}
-								/>
+								<Fragment key={item.id} >
+								<MoviePoster 
+									key={item.id} 
+									content={item}
+									typeContent={content.typeContent}/>
+								{history.location.pathname.includes(item.id) && history.location.pathname.includes(categoryUrl)
+								? <div className="flex-fill w-100 mb-3">
+										<PrivateRoute 
+										key={item.id}
+										path='/contents/:category/overview=:id'
+										component={OverviewMovie} />
+									</div>
+								: ''}
+							</Fragment>
 						)
 					})}
 				</InfiniteScroll>
 			</Container>
-			{dataContent.map(item => {
-				return(
-					history.location.pathname.includes(item.id) && history.location.pathname.includes(categoryUrl)
-					? <PrivateRoute 
-						key={item.id}
-						path='/contents/:category/overview=:id'
-						component={OverviewMovie} />
-					: ''
-				)
-			})}
 		</div>
 	);
 }

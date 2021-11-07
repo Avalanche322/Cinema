@@ -8,7 +8,9 @@ import {
 	FETCH_MOVIES_UPCOMING,
 	FETCH_TV_TOP_RATED,
 	FETCH_TV_POPULAR,
-	FETCH_TV_SEASONS} from "./types";
+	FETCH_TV_SEASONS,
+	FETCH_CONTENT_SEARCH_LIST,
+	CLEAR_CONTENT_SEARCH_LIST} from "./types";
 
 const initialState = {
 	// all in action.js
@@ -64,6 +66,7 @@ const initialState = {
 	},
 	favorite: [],
 	search: {},
+	searchList: [],
 	searchSeasons: [],
 };
 let arr = [];
@@ -103,6 +106,11 @@ const contentsReducer = (state = initialState, action) => {
 			return {...state, 
 				contents: {...state.contents, popular_tv: {...state.contents.popular_tv, data: getUniqueListBy(arr)}} 
 			}
+		case FETCH_CONTENT_SEARCH_LIST:
+			arr = [...state.searchList, ...action.payload];
+			return {...state, searchList: getUniqueListBy(arr) }
+		case CLEAR_CONTENT_SEARCH_LIST:
+			return {...state, searchList: [] }
 		case UPLOAD_MOVIES_FAVORITE:
 			return {...state, favorite: [...state.favorite, ...action.payload]}
 		case REMOVE_MOVIES_FAVORITE:

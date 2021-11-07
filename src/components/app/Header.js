@@ -1,19 +1,30 @@
 import { useState, useEffect, memo } from "react";
-import { Navbar, Container, Nav, Dropdown } from "react-bootstrap";
+import { Navbar, Container, Nav, Dropdown, Button, Form } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import fullLogo from '../../img/full-logo.png';
-import user from '../../img/user.svg';
 import { useDispatch } from "react-redux";
-import { logout } from "../../redux/actions";
+import { logout, showError, clearSearchContentsByName } from "../../redux/actions";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { FaSearch, FaTimes } from 'react-icons/all';
 
 
 const Header = () => {
 	const [isActive, setIsActive] = useState(false);
 	const [isHeaderHidden, setIsHeaderHidden] = useState(false);
+	const [showInput, setShowInput] = useState(false);
+	const [search, setSearch] = useState('');
 	const [prevScrollpos, setPrevScrollpos] = useState(window.pageYOffset);
 	const [isTop, setIsTop] = useState(window.pageYOffset === 0);
-	const currentUser = JSON.parse(localStorage.getItem('user'));
+	const currentUser = useSelector(state => state.user.user);
+	const has_plan = useSelector(state => state.user.settings?.has_plan);
+	const has_card = useSelector(state => state.user.settings?.has_card);
+	const sing_in = useSelector(state => state.user.settings?.sing_in);
+	const isImportentSettings = currentUser && has_plan && has_card;
+	// eslint-disable-next-line no-unused-vars
+	const rerenderComponent = useSelector(state => state.app.rerender_component);
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const handlerSidebar = () =>{
 		setIsActive(!isActive);
 		if(window.innerWidth <= 768){
@@ -44,7 +55,13 @@ const Header = () => {
 		try {
 			dispatch(logout());
 		} catch(e) {
-			alert(e.message);
+			dispatch(showError(e.message) );
+		}
+	}
+	const handleKeyDown = (event) => {
+		if (event.key === 'Enter') {
+			dispatch(clearSearchContentsByName());
+			history.push(`/search=${search}`);
 		}
 	}
 	return (
@@ -57,11 +74,12 @@ const Header = () => {
 						<img className="logo__img" src={fullLogo} alt="logo" />
 					</NavLink>
 				</Navbar.Brand>
-				<nav className="w-100 d-flex align-items-center justify-content-end">
-					{currentUser && <Nav className={`mx-auto header__menu px-md-0 pt-md-0 pt-5 px-3 flex-md-row flex-column
-					 ${isActive ? "active" : ''}`}>
+				<nav className="w-100 d-flex align-items-center justify-content-end position-relative">
+					{isImportentSettings && <Nav className={`mx-auto header__menu px-md-0 pt-md-0 pt-5 px-3 
+					flex-md-row flex-column ${isActive ? "active" : ''}`}>
 						<NavLink 
-							className={`menu__link link-color fs-5 white-80 lh-lg me-md-3 ${isActive ? "active" : ''}`}
+							className={`menu__link link-color fs-5 white-80 lh-lg me-md-3 ${isActive ? "active" : ''}
+								${showInput ? 'invisible' : ''}`}
 							activeClassName="menu__link-active opacity-100"
 							onClick={handlerSidebar.bind(null)}
 							exact
@@ -69,27 +87,51 @@ const Header = () => {
 							Home
 						</NavLink>
 						<NavLink 
-							className={`menu__link link-color fs-5 white-80 lh-lg ${isActive ? "active" : ''}`}
+							className={`menu__link link-color fs-5 white-80 lh-lg ${isActive ? "active" : ''} 
+								${showInput ? 'invisible' : ''}`}
 							activeClassName="menu__link-active opacity-100"
 							onClick={handlerSidebar.bind(null)}
 							to="/favorite">
 							My Favorite
 						</NavLink>
+						<div className="header__search search-header ms-md-2 d-flex align-items-center">
+							<Form.Control 
+								type="text"
+								placeholder='Movies and Serials'
+								onKeyDown={handleKeyDown}
+								onChange={(e) => setSearch(e.target.value)}
+								className={`search-header__input ${showInput ? '' : 'search-header__input-hidden'}`} />
+							<Button className='search-header__btn' onClick={() => setShowInput(!showInput)}>
+								{showInput ? <FaTimes/> : <FaSearch/>}
+							</Button>
+						</div>
 					</Nav>}
-					{currentUser
-						? <Nav className="profile">			
+					{isImportentSettings && <Nav className="profile">			
 							<Dropdown>
-								<Dropdown.Toggle as="img" src={user} id="profile-menu" />
-								<Dropdown.Menu className="me-5" variant="dark" align='end'>
-									<Dropdown.Item>Settings</Dropdown.Item>
-									<Dropdown.Item onClick={handleLogout.bind(null)}>Log Out</Dropdown.Item>
+								<Dropdown.Toggle 
+									as="img" 
+									src={currentUser.photoURL} 
+									alt="user avatar"
+									className="profile__avatar rounded-circle"
+									id="profile-avatar" />
+								<Dropdown.Menu variant="dark" id="profile-menu">
+									<Dropdown.Item href="/settings/profile">
+										Settings
+									</Dropdown.Item>
+									<Dropdown.Item 
+										className="profile__link" 
+										onClick={handleLogout.bind(null)}
+										>Log Out
+									</Dropdown.Item>
 								</Dropdown.Menu>
 							</Dropdown>
-						</Nav>
-						: <NavLink className="sing-in link-color white-60 fs-5 lh-lg" to="/sing-in">Sing-In</NavLink>
-					}	
+					</Nav>}
+					{sing_in && !isImportentSettings && 
+						<Button className="header__btn link-color white-60 fs-5" onClick={handleLogout.bind(null)}>Log Out</Button>}
+					{!sing_in && 
+						<NavLink className="link-color white-60 fs-5 lh-lg" to="/sing-in">Sing-In</NavLink>}
 					<div 
-						className={`header__humburger d-md-none ms-3 ${isActive ? "active" : ''}`}
+						className={`header__humburger ms-3 ${isActive ? "active" : ''}`}
 						onClick={handlerSidebar.bind(null)}>
 						<span></span>
 					</div>

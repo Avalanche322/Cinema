@@ -1,12 +1,11 @@
 import { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import ListMovies from "../components/app/ListMovies";
 
 const Home = () => {
 	const contents = useSelector(state => state.contents.contents);
 	const location = useLocation();
-	const history = useHistory();
 	let arrAllContent = [];
 	const [allContent, setAllContent] = useState([]);
 	// NOW PLAYING Data

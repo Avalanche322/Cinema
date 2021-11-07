@@ -1,11 +1,15 @@
-import { Route, Redirect } from "react-router-dom"
+import { useSelector } from "react-redux";
+import { Route, Redirect } from "react-router-dom";
 const PrivateRoute = ({ component: Component, ...rest }) => {
-	const user = JSON.parse(localStorage.getItem('user'));
+	const user = useSelector(state => state.user.user);
+	const has_plan = useSelector(state => state.user.settings?.has_plan);
+	const has_card = useSelector(state => state.user.settings?.has_card);
+	const isUser = user && has_plan && has_card;
 	return (
 		<Route
       {...rest}
       render={props => {
-        return user ? <Component {...props} /> : <Redirect to="/prevue" />
+        return isUser ? <Component {...props} /> : <Redirect to="/prevue" />
       }}
     ></Route>
 	);

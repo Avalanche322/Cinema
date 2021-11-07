@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import { BiChevronLeft, BiHide, BiShow } from "react-icons/all";
+import { BiChevronLeft, BiHide, BiShow, FcGoogle } from "react-icons/all";
 import { Button, Form, Alert, InputGroup, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { singup, singInWithGoogle } from "../redux/actions"
 import fullLogo from '../img/full-logo.png';
-import googleIcon from "../img/google-icon.png";
 import banner from "../img/banner.webp";
 
 const SingUp = () => {
@@ -26,7 +25,7 @@ const SingUp = () => {
 		dispatch(singup(email,password));
 	}
 	function handleSubmitWithGoogle(){
-		dispatch(singInWithGoogle('/sing-up/platform'));
+		dispatch(singInWithGoogle());
 	}
 	const back = e => {
 		if(!loading){
@@ -50,13 +49,13 @@ const SingUp = () => {
 					<span>STEP 1 OF 3</span>
 					{error && <Alert className="p-2 mt-2" variant="warning">{error}</Alert>}
 				</div>
-				<button 
-					className="authentication__btn-social rounded-3 w-100 py-1" 
+				<Button
+					variant='light' 
+					className="authentication__btn-social w-100 d-flex align-items-center justify-content-center" 
 					onClick={handleSubmitWithGoogle.bind()}
 					disabled={loading}>
-					<img className="me-2" src={googleIcon} alt="Google Icon" />
-					Continue with Google
-				</button>
+					<FcGoogle className="me-2"/> Continue with Google
+				</Button>
 				<div className="mt-3 text-center">
 					<span>OR</span>
 				</div>
@@ -97,7 +96,7 @@ const SingUp = () => {
 					<Link 
 						to="/sing-in" 
 						className={`authentication__link white-60  ${loading ? 'disabled-link' : ''}`}
-						>Sing In
+						> Sing In
 					</Link>
 				</p>
 				<p className="text-center">

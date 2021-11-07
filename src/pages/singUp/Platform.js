@@ -23,17 +23,14 @@ const Platform = () => {
 		// title for page
 		document.title = "Choose Plan | Cinema HD"
 	}, []);
-	useEffect(() =>{
-		
-	},[])
 	async function handleSubmit(e){
 		e.preventDefault();
 		dispatch(changeSettings({plan: selectPlan}));
-		history.push('/sing-up/payment');	
+		history.push('/sing-up/payment');
 	}
 	const back = e => {
 		e.stopPropagation();
-		history.push('/sing-up');
+		history.goBack();
 	};
 	return (
 		<>

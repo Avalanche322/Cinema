@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useLocation, useParams } from "react-router";
 import { Tabs, Tab, Container } from "react-bootstrap";
-import { removeFavorite, searchSeasons, uploadFavorite } from "../redux/actions";
+import { removeFavorite, searchSeasonsById, uploadFavorite } from "../redux/actions";
 import {BsFillBookmarkFill,FaTimes, IoIosArrowForward, IoIosArrowBack} from 'react-icons/all';
 import movieTrailer from 'movie-trailer';
 import Cinema from "../components/app/Cinema";
@@ -18,6 +18,7 @@ const OverviewTv = () => {
 	const seasons = useSelector(state => state.contents.searchSeasons);
 	const numberSeasons = [...Array(content.number_of_seasons).keys()].map(x => ++x);
 	const [selectedSeason, setSelectedSeason] = useState(1);
+	const [prodCountries, setProdCountries] = useState([]);
 	const user = useSelector(state => state.user.user);
 	const [videoURL, setVideoURL] = useState('');
 	const [tab, setTab] = useState('');
@@ -30,16 +31,33 @@ const OverviewTv = () => {
 	// eslint-disable-next-line
 	}, [content]);
 	useEffect(() => {
-		dispatch(searchSeasons(id, content.number_of_seasons));
+		dispatch(searchSeasonsById(id, content.number_of_seasons));
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
+	useEffect(() => {
+		if(content.production_countries){
+			for (const counry of content.production_countries) {
+				setProdCountries([...prodCountries, counry.iso_3166_1])
+			}
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+	useEffect(() => {
+		if(tab === 'watch' && !videoURL){
+			getMovieTrailer(content.name);
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [tab])
 	function actionFavorite(){
 		favorite ? dispatch(removeFavorite(favorite,user)) : dispatch(uploadFavorite(content,user))
 	}
+	async function getMovieTrailer(title){
+		const res = await movieTrailer(title);
+		setVideoURL(res);
+	}
 	async function handlerTrailer(){
 		if(content.name){
-			const res = await movieTrailer(content.name);
-			setVideoURL(res);
+			getMovieTrailer(content.name);
 		}
 		document.body.classList.add('overflow-hidden');
 		setShowTrailer(true);
@@ -136,9 +154,8 @@ const OverviewTv = () => {
 	return (
 		<div className="my-2 overview overflow-hidden">
 			<div className='overview__img position-relative'>
-				<Link to={location.state.prevLocation} 
-					className="position-absolute overview__close border-0">
-					<FaTimes />
+				<Link to={location.state.prevLocation} >
+					<FaTimes className="position-absolute overview__close" />
 				</Link>
 				<Tabs
 					defaultActiveKey="about"
@@ -156,11 +173,30 @@ const OverviewTv = () => {
 									<h2 className="mb-2 overview__title mb-4 inline-block">{content.name}</h2>
 									<h5 className="fst-italic">{content.tagline}</h5>
 									<p>{content.overview}</p>
-									<p className="mt-1">Average: {content.vote_average}</p>
-									<p className="mt-1">Status: {content.status}</p>
-									<p className="mt-1">Number of seasons: {content.number_of_seasons}</p>
-									<p className="mt-1">Number of episodes: {content.number_of_episodes}</p>
-									<p className="mt-1">Original name: {content.original_name}</p>
+									<div className="mt-1">
+										<span className="overview__text-bold">Average:</span>
+										<span className="white-70"> {content.vote_average}</span>
+									</div>
+									<div className="mt-1">
+										<span className="overview__text-bold">Status:</span>
+										<span className="white-70"> {content.status}</span>
+									</div>
+									<div className="mt-1">
+										<span className="overview__text-bold">Number of seasons:</span>
+										<span className="white-70"> {content.number_of_seasons}</span>
+									</div>
+									<div className="mt-1">
+										<span className="overview__text-bold">Number of episodes:</span> 
+										<span className="white-70"> {content.number_of_episodes}</span>
+									</div>
+									<div className="mt-1">
+										<span className="overview__text-bold">Prodaction country:</span>
+										<span className="white-70"> {prodCountries.join(',')}</span>
+									</div>
+									<div className="mt-1">
+										<span className="overview__text-bold">Original name:</span>
+										<span className="white-70"> {content.original_name}</span>
+									</div>
 								</div>
 								<div className="mt-2">
 									<button 
@@ -203,7 +239,7 @@ const OverviewTv = () => {
 										{seasons[selectedSeason - 1].episodes?.map(episod => {			
 											return (
 												<Fragment key={episod.id}>
-													{episod.overview && <div
+													{episod.still_path && <div
 													onClick={handlerWatch.bind(null,episod.name)} 
 													className="pe-3 seasons-overview__item rounded-3">
 													<div className="seasons-overview__img">

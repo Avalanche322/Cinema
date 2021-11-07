@@ -13,7 +13,7 @@ $gray-light: #2a2a2a;
 	border-radius: 13px;
 }
 ::-webkit-scrollbar-thumb {
-	background-color: rgba(255, 255, 255, 0.7);;
+	background-color: rgba(255, 255, 255, 0.7);
 	border-radius: 13px;
 }
 a{
@@ -100,17 +100,32 @@ ul{
 		color: rgba(255, 255, 255, 0.4);
 	}
 }
+/*======================Extend======================*/
+%btn-orange{
+	background: $orange !important;
+	color: $body-color !important;
+	border-color: $orange !important;
+	transition: all 0.3s ease;
+	&:hover{
+		color: $body-color !important;
+		background: $orange-intense !important;
+	}
+}
+%btn-google{
+	transition: all 0.3s ease;
+	background: #fff !important;
+	&:hover{
+		border-color: #D0D3D4 !important;
+		background: #D0D3D4 !important;
+	}
+}
 /*======================Modal======================*/
 .modal{
 	.modal-content{
 		background: $graphitic;
 	}
 	&__btn{
-		background: $orange !important;
-		transition: all 0.3s ease;
-		&:hover{
-			background: $orange-intense !important;
-		}
+		@extend %btn-orange;
 	}
 }
 /*======================Loader======================*/
@@ -139,7 +154,7 @@ ul{
 .menu{
 	&__link{
 		font-weight: 600;
-		transition: all 0.3s ease;
+		transition: opacity 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 		border-bottom: 2px solid transparent;
 		&:hover{
 			opacity: 1 !important;
@@ -169,11 +184,35 @@ ul{
 }
 .profile{
 	position: relative;
+	cursor: pointer;
 	z-index: 10;
+	&__avatar{
+		width: 50px;
+		height: 50px;
+		object-fit: cover;
+	}
+	&__link{
+		color: $body-color !important;
+	}
 }
 .header{
-	//border-bottom: 1px solid $gray-light;
+	border-bottom: 1px solid $gray-light;
 	transition: top 0.3s ease, background-color 0.3s ease;
+	&__btn{
+		@extend %btn-orange;
+	}
+	&__humburger{
+		display: none;
+	}
+	&__hidden{
+		top: -70px !important;
+	}
+	&__fill{
+		background: $graphitic;
+	}
+	.dropdown-menu{
+		left: -80px !important;
+	}
 	@media (max-width: 768px) {
 		&__humburger{
 			display: block;
@@ -230,12 +269,37 @@ ul{
 		&__menu.active {
 			right: 0;
 		}
+		.invisible{
+			visibility: visible !important;
+		}
 	}
-	&__hidden{
-		top: -70px !important;
+}
+.search-header{
+	&__btn{
+		background: transparent !important;
+		border: none !important;
+		font-size: 18px !important;
+		color: rgba(255, 255, 255, 0.8) !important;
+		transition: all 0.3s ease !important;
+		&:focus {
+			box-shadow: none !important;
+		}
+		&:hover{
+			color: #fff !important;
+		}
 	}
-	&__fill{
-		background: $graphitic;
+	&__input{
+		@media (min-width: 768px) {
+			position: absolute;
+			width: 30% !important;
+			left: 24%;
+		}
+	}
+	&__input-hidden{
+		width: 0 !important;
+		padding: 0 !important;
+		border: 0 !important;
+		opacity: 0;
 	}
 }
 /*======================Hero======================*/
@@ -259,17 +323,10 @@ ul{
 		font-size: 36px;
 	}
 	&__btn{
-		color: $body-color;
-		background: $orange;
-		padding: 12px 40px;
-		font-size: 18px;
-		transition: all 0.3s ease;
+		@extend %btn-orange;
+		font-size: 18px !important;
 		&:active{
 			transform: scale(.96);
-		}
-		&:hover{
-			color: $body-color;
-			background: $orange-intense;
 		}
 	}
 	&__sub-price{
@@ -282,14 +339,37 @@ ul{
 }
 /*======================Our Strories======================*/
 .our-stories{
+	border-bottom: 2px solid $gray-light;
 	&__title{
 		font-size: 50px;
 	}
 	&__text{
 		font-size: 26px;
 	}
+	&__img-mobile{
+		max-width: 47%;
+	}
 	&__img{
-		max-width: 300px;
+		position: relative;
+		z-index: 2;
+	}
+	&__video-tv{
+		top: 2%;
+		max-width: 93%;
+		z-index: 1;
+	}
+	&__video-desktop{
+		top: 6%;
+		left: 5%;
+		max-width: 89%;
+	}
+	&__video-mobile{
+		top: 8%;
+		left: 6%;
+		max-width: 35%;
+		@media (max-width: 768px) {
+			left: 33%;
+		}
 	}
 }
 /*======================Questions======================*/
@@ -321,12 +401,7 @@ ul{
 		}
 	}
 	&__btn-social{
-		background: $body-color;
-		border: none;
-		transition: background 0.3s ease;
-		&:hover{
-			background: rgba(255, 255, 255, 0.85);
-		}
+		@extend %btn-google;
 	}
 	&__link{
 		transition: all 0.3s ease;
@@ -337,6 +412,12 @@ ul{
 	&__logo{
 		width: 120px;
 		height: 35px;
+	}
+}
+/*======================Forgot Password======================*/
+.forgot-passoword{
+	&__btn{
+		@extend %btn-orange;
 	}
 }
 /*======================Platform======================*/
@@ -461,6 +542,7 @@ ul{
 	}
 	&__poster{
 		height: 100%;
+		width: 100%;
 		transform: scale(1);
 		transition: all 0.3s ease;
 		cursor: pointer;
@@ -473,6 +555,7 @@ ul{
 	}
 	&__poster-block{
 		flex: 0 1 15%;
+		height: 100%;
 		cursor: pointer;
 		color: #fff;
 		&:hover{
@@ -633,16 +716,17 @@ ul{
 	}
 	&__close{
 		background: transparent;
+		cursor: pointer;
 		transition: all 0.3s ease;
 		text-align: center;
 		z-index: 3;
 		color: $body-color;
 		font-size: 25px;
-		right: 15px;
-		top: 10px;
+		right: 25px;
+		top: 25px;
 		&:hover{
 			color: rgba(255, 255, 255, 0.6);
-			//transform: rotate(90deg);
+			transform: rotate(90deg);
 		}
 	}
 }
@@ -736,6 +820,90 @@ ul{
 	width: 100%;
 	background: rgba(0,0,0, .9);
 }
+/*======================Settings======================*/
+.settings{
+	margin-top: 100px;
+	&__btn{
+		@extend %btn-orange;
+	}
+	&__btn-link{
+		color: $body-color;
+		&:hover{
+			color: $body-color;
+		}
+	}
+	&__link{
+		color: rgba(255, 255, 255, 0.6);
+		transition: all 0.3s ease;
+		&:hover{
+			color: rgba(255, 255, 255, 0.8);
+		}
+	}
+	&__block{
+		max-width: 500px;
+	}
+	&__input-btn{
+		background: #fff !important;
+		color: #000 !important;
+		border-color: #fff !important;
+		font-size: 18px !important;
+	}
+	&__subtitle{
+		font-size: 18px;
+		border-bottom: 1px solid $gray-light;
+	}
+}
+.sidebar-settings{
+	background: $graphitic;
+	box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.2);
+	&__block-title{
+		background: $orange;
+	}
+}
+.list-sidebar-settings{
+	&__item{
+		font-size: 18px;
+		color: $body-color;
+		transition: all 0.3s ease;
+		&:hover{
+			color: $orange-intense;
+		}
+	}
+	&__item-active{
+		color: $orange-intense;
+	}
+	@media (max-width: 768px) {
+		overflow-x: auto;
+		&::-webkit-scrollbar {
+			height: 7px;
+		}
+	}
+}
+.profile-settings{
+	&__img{
+		height: 100px;
+		width: 100px;
+		img{
+			object-fit: cover;
+			width: 100%;
+			height: 100%;
+		}
+	}
+	&__subtext{
+		color: $orange;
+	}
+}
+.change-email-settings{
+	&__input-disapbled{
+		background: #fff;
+		border-color: #fff !important;
+	}
+}
+.social-settings{
+	&__btn{
+		@extend %btn-google;
+	}
+}
 /*======================Footer======================*/
 .footer{
 	background: $graphitic;
@@ -758,5 +926,13 @@ ul{
 }
 /*======================Change container Bootstrap======================*/
 .container-md{
-	max-width: 1500px !important;
+	@media (min-width: 768px) {
+		max-width: 900px !important;
+	}
+	@media (min-width: 992px) {
+		max-width: 1000px !important;
+	}
+	@media (min-width: 1400px) {
+		max-width: 1500px !important;
+	}
 }

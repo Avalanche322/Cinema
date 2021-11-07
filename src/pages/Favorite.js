@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -21,25 +21,23 @@ const Favorite = () => {
 				<div className="d-flex flex-wrap">
 					{favorite.map(item => {
 						return (
-							<MoviePoster 
-								key={item.id} 
+							<Fragment key={item.id} >
+								<MoviePoster 
 								content={item}
-								typeContent={item.type ? 'tv' : 'movie'}
-						/>
+								typeContent={item.type ? 'tv' : 'movie'}/>
+								{history.location.pathname.includes(item.id)
+								? <div className="flex-fill">
+									<PrivateRoute 
+										key={item.id}
+										path='/favorite/overview=:id' 
+										component={item.type ? OverviewTv : OverviewMovie} />
+									</div>
+								: ''}
+							</Fragment>
 						)
 					})}
 				</div>
 			</Container>
-			{favorite.map(item => {
-				return(
-					history.location.pathname.includes(item.id)
-					? <PrivateRoute 
-						key={item.id}
-						path='/favorite/overview=:id' 
-						component={item.type ? OverviewTv : OverviewMovie} />
-					: ''
-				)
-			})}
 		</section>
 	);
 }
