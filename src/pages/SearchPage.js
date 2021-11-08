@@ -48,13 +48,13 @@ const SearchPage = () => {
 								<MoviePoster 
 									key={item.id} 
 									content={item}
-									typeContent={item.type ? 'tv' : 'movie'}/>
+									typeContent={item.name ? 'tv' : 'movie'}/>
 								{history.location.pathname.includes(item.id) && history.location.pathname.includes(query)
 								? <div className="flex-fill mb-3 w-100">
 										<PrivateRoute 
 										key={item.id}
 										path='/search=:query/overview=:id'
-										component={item.type ? OverviewTv : OverviewMovie} />
+										component={item.name ? OverviewTv : OverviewMovie} />
 									</div>
 								: ''}
 							</Fragment>

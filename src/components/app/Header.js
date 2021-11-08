@@ -61,6 +61,8 @@ const Header = () => {
 	const handleKeyDown = (event) => {
 		if (event.key === 'Enter') {
 			dispatch(clearSearchContentsByName());
+			setShowInput(false);
+			setSearch('');
 			history.push(`/search=${search}`);
 		}
 	}
@@ -99,6 +101,7 @@ const Header = () => {
 								type="text"
 								placeholder='Movies and Serials'
 								onKeyDown={handleKeyDown}
+								value={search}
 								onChange={(e) => setSearch(e.target.value)}
 								className={`search-header__input ${showInput ? '' : 'search-header__input-hidden'}`} />
 							<Button className='search-header__btn' onClick={() => setShowInput(!showInput)}>

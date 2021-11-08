@@ -19,7 +19,9 @@ const MoviePoster = ({content, categoryUrl, typeContent}) => {
 				<div className="position-relative movies__poster mb-3">
 					<img 
 						className="rounded"
-						src={'https://image.tmdb.org/t/p/w200' + content.poster_path} 
+						src={ content.poster_path 
+							?'https://image.tmdb.org/t/p/w200' + content.poster_path
+							: 'https://via.placeholder.com/135x200/1f1f1f/fff?text=image+not+found'} 
 						loading='lazy'
 						alt={content.title} />
 					<span 
