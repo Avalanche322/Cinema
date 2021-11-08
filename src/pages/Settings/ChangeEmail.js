@@ -49,9 +49,9 @@ const ChangeEmail = () => {
 						</Button>
 					</InputGroup>
 				</Form.Group>
-				<Button 
-					className="settings__btn" 
-					type="submit" 
+				<Button
+					className="settings__btn"
+					type="submit"
 					disabled={loading || !email || !password}
 					>Submit {loading ? <Spinner as='span' size="sm" animation="border" variant="light"/> : null}
 				</Button>
