@@ -52,7 +52,7 @@ const ChangeEmail = () => {
 				<Button 
 					className="settings__btn" 
 					type="submit" 
-					disabled={loading || !isShowPassword || !password}
+					disabled={loading || !email || !password}
 					>Submit {loading ? <Spinner as='span' size="sm" animation="border" variant="light"/> : null}
 				</Button>
 			</Form>
