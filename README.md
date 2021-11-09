@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# Cinema HD
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An application use Firebase for hosting and datebase, built with React, Redux, JavaScript, and SCSS.
 
-## Available Scripts
+## Project Status
 
-In the project directory, you can run:
+This project is currently done. Users can sing up and sing in with Google or email and passwod, can mix them, change password, watch a movie, TV series, trailer, read about them, add favorites and look for what you want.
 
-### `npm start`
+## Project Screen Shots
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![desktop](src/video/our-story/our-story-desktop.gif)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Installation and Setup Instructions
 
-### `npm test`
+Open [https://cinema-dev-v1.firebaseapp.com/](https://cinema-dev-v1.firebaseapp.com/) to view it in the browser.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Clone down this repository. You will need firebase account and `node`, `npm` installed globally on your machine.
 
-### `npm run build`
+Installation:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![how download](src/video/how-download.gif)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Clone repository
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`git clone https://github.com/Avalanche322/Cinema.git`  
 
-### `npm run eject`
+Open folder
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+`cd Cinema-master`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Install node modules:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`npm install`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+To create `.env.local` (API Google Firebase, API TMDB)
 
-## Learn More
+You must open your IDE and create `.env.local` in root folder.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+REACT_APP_API_KEY= API KEY <br />
+REACT_APP_AUTH_DOMAIN= AUTH DOMAIN <br />
+REACT_APP_PROJECT_ID= PROJECT ID <br />
+REACT_APP_STORAGE_BUCKET= STORAGE BUCKET <br />
+REACT_APP_MESSAGING_SENDER_ID= MESSAGING SENDER ID <br />
+REACT_APP_APP_ID= APP ID <br />
+REACT_APP_MEASUREMENT_ID= MEASUREMENT ID <br />
+REACT_APP_CINEMA_API_KEY= CINEMA API KEY <br />
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+To Start Server:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+`npm run start`  
 
-### Analyzing the Bundle Size
+To Visit App:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+`http://localhost:3000` 
