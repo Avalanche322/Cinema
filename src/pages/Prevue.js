@@ -106,7 +106,7 @@ const Prevue = () => {
 					</div>
 				</Container>
 			</section>
-			<section className="questions our-stories">
+			<section className="questions our-stories mt-3">
 				<Container>
 					<h2 className="our-stories__title text-center">Frequently Asked Questions</h2>
 					<Accordion flush className="questions__list list-question mt-3">

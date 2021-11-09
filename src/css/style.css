@@ -11455,9 +11455,6 @@ ul {
 }
 
 /*======================Our Strories======================*/
-.our-stories {
-  border-bottom: 2px solid #2a2a2a;
-}
 .our-stories__title {
   font-size: 50px;
 }
@@ -11490,6 +11487,9 @@ ul {
   .our-stories__video-mobile {
     left: 33%;
   }
+}
+.our-stories:not(:last-child) {
+  border-bottom: 2px solid #2a2a2a;
 }
 
 /*======================Questions======================*/

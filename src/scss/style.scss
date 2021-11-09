@@ -339,7 +339,6 @@ ul{
 }
 /*======================Our Strories======================*/
 .our-stories{
-	border-bottom: 2px solid $gray-light;
 	&__title{
 		font-size: 50px;
 	}
@@ -370,6 +369,9 @@ ul{
 		@media (max-width: 768px) {
 			left: 33%;
 		}
+	}
+	&:not(:last-child){
+		border-bottom: 2px solid $gray-light;
 	}
 }
 /*======================Questions======================*/
