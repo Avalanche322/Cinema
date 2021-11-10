@@ -25,6 +25,8 @@ const OverviewTv = () => {
 	const [showTrailer, setShowTrailer] = useState(false);
 	const [watch, setWatch] = useState('');
 	const [showWatch, setShowWatch] = useState('');
+	const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' };
+	const dateRelease = new Date(content.first_air_date).toLocaleDateString('en-US', optionsDate);
 	useEffect(() => {
 		// title for page
 		document.title = `${content.name} | Cinema HD`;
@@ -173,6 +175,10 @@ const OverviewTv = () => {
 									<h2 className="mb-2 overview__title mb-4 inline-block">{content.name}</h2>
 									<h5 className="fst-italic">{content.tagline}</h5>
 									<p>{content.overview}</p>
+									<div className="mt-3">
+										<span className="overview__text-bold">Release date:</span>
+										<span className="white-70"> {dateRelease}</span>
+									</div>
 									<div className="mt-1">
 										<span className="overview__text-bold">Average:</span>
 										<span className="white-70"> {content.vote_average}</span>

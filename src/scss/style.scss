@@ -291,8 +291,12 @@ ul{
 	&__input{
 		@media (min-width: 768px) {
 			position: absolute;
-			width: 30% !important;
-			left: 24%;
+			width: 300px !important;
+			right: 42%;
+		}
+		@media (min-width: 870px) {
+			width: 350px !important;
+			right: 46%;
 		}
 	}
 	&__input-hidden{
@@ -300,6 +304,41 @@ ul{
 		padding: 0 !important;
 		border: 0 !important;
 		opacity: 0;
+	}
+	&__result{
+		background: $graphitic;
+		top: 60px;
+		right: 46%;
+		width: 350px;
+	}
+}
+.search-header-result{
+	&__img{
+		max-width: 50px;
+		img{
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+	&__title{
+		font-size: 18px !important;
+	}
+	&__subtitle{
+		color: rgba(255, 255, 255, 0.8);
+	}
+	&__btn{
+		color: rgba(255, 255, 255, 0.8) !important;
+		&:hover{
+			color: #fff !important;
+		}
+	}
+	&__link{
+		color: $body-color !important;
+		transition: all 0.3s ease;
+		&:hover{
+			background: $gray-light !important;
+		}
 	}
 }
 /*======================Hero======================*/
@@ -525,7 +564,7 @@ ul{
 .favorite{
 	margin-top: 100px;
 }
-/*======================Movie======================*/
+/*======================Contents======================*/
 .movies{
 	&:hover{
 		.movies__title-arrow{
@@ -641,6 +680,10 @@ ul{
 	&__text{
 		transition: all 0.3s ease;
 	}
+}
+/*======================Movie======================*/
+.movie{
+	margin-top: 70px;
 }
 /*======================Overview======================*/
 .overview{
@@ -933,6 +976,9 @@ ul{
 	}
 	@media (min-width: 992px) {
 		max-width: 1000px !important;
+	}
+	@media (min-width: 1200px) {
+		max-width: 1200px !important;
 	}
 	@media (min-width: 1400px) {
 		max-width: 1500px !important;

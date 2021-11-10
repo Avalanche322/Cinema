@@ -1,11 +1,11 @@
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect, memo, Fragment } from "react";
 import { Navbar, Container, Nav, Dropdown, Button, Form } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import fullLogo from '../../img/full-logo.png';
 import { useDispatch } from "react-redux";
-import { logout, showError, clearSearchContentsByName } from "../../redux/actions";
+import { logout, showError, clearSearchContentsByName, searchContentsByName, searchMovieById } from "../../redux/actions";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useHistory, useRouteMatch } from "react-router";
 import { FaSearch, FaTimes } from 'react-icons/all';
 
 
@@ -25,6 +25,9 @@ const Header = () => {
 	const rerenderComponent = useSelector(state => state.app.rerender_component);
 	const dispatch = useDispatch();
 	const history = useHistory();
+	// search contents
+	const contents = useSelector(state => state.contents.searchList.slice(0, 5));
+	const [notFound, setNotFound] = useState(true);
 	const handlerSidebar = () =>{
 		setIsActive(!isActive);
 		if(window.innerWidth <= 768){
@@ -58,14 +61,45 @@ const Header = () => {
 			dispatch(showError(e.message) );
 		}
 	}
-	const handleKeyDown = (event) => {
+	function handelLinkToAllContent(){
+		dispatch(clearSearchContentsByName());
+		setShowInput(false);
+		setSearch('');
+		history.push(`/search=${search}`);
+	}
+	const handelKeyDown = (event) => {
 		if (event.key === 'Enter') {
-			dispatch(clearSearchContentsByName());
-			setShowInput(false);
-			setSearch('');
-			history.push(`/search=${search}`);
+			handelLinkToAllContent();
 		}
 	}
+	const handelInput = (value) => {
+		if(value){
+			dispatch(searchContentsByName(value, 1));
+		}
+		dispatch(clearSearchContentsByName());
+		setSearch(value);
+		if(contents.length){
+			setNotFound(false);
+		} else{
+			setNotFound(true);
+		}
+	}
+	const handelShowInput = () => {
+		dispatch(clearSearchContentsByName());
+		setSearch('');
+		setShowInput(!showInput);
+	}
+	const handelLinkToContent = (id, type) => {
+		dispatch(searchMovieById(id, type));
+		setSearch('');
+		setShowInput(!showInput);
+	}
+	function timeConvert(n) {
+		var options = {year: 'numeric'};
+		var today  = new Date(n);
+		return today.toLocaleDateString("en-US", options)
+	}
+	const { url } = useRouteMatch();
 	return (
 		<header>
 			<Navbar fixed="top" 
@@ -100,13 +134,59 @@ const Header = () => {
 							<Form.Control 
 								type="text"
 								placeholder='Movies and Serials'
-								onKeyDown={handleKeyDown}
+								onKeyDown={handelKeyDown}
 								value={search}
-								onChange={(e) => setSearch(e.target.value)}
+								onChange={(e) => handelInput(e.target.value)}
 								className={`search-header__input ${showInput ? '' : 'search-header__input-hidden'}`} />
-							<Button className='search-header__btn' onClick={() => setShowInput(!showInput)}>
+							<Button className='search-header__btn' onClick={handelShowInput}>
 								{showInput ? <FaTimes/> : <FaSearch/>}
 							</Button>
+							<ul 
+								className={`search-header__result search-header-result position-absolute rounded-3
+								${showInput && !!contents.length ? '' : 'invisible'}`}>
+								{notFound // if not foud see that else result
+								? <li className='py-3 ps-3 pe-5'>
+										Not Found
+									</li>
+								: <Fragment>
+										{contents.map(content => {
+											return (
+												<li key={content.id}>
+													<NavLink
+														className='d-flex align-items-top search-header-result__link rounded-3 py-3 ps-3 pe-5'
+														to={{
+															pathname: `/content/${content.title ? 'movie' : 'tv'}/overview=${content.id}`,
+															state: {prevLocation: url}}}
+														onClick={() => handelLinkToContent(content.id, content.title ? 'movie' : 'tv')}
+														>
+														<img 
+															className='search-header-result__img me-3'
+															src={content.poster_path 
+															?'https://image.tmdb.org/t/p/w200' + content.poster_path
+															: 'https://via.placeholder.com/135x200/1f1f1f/fff?text=image+not+found'}  
+															alt={content.title} />
+														<div>
+															<h3 className='search-header-result__title lh-1'>
+																{content.title ? content.title : content.name}
+															</h3>
+															<span className='search-header-result__subtitle'>
+																{timeConvert( content.title ? content.release_date : content.first_air_date)}
+															</span>
+														</div>
+													</NavLink>
+												</li>
+											)
+										})}
+										<li className='text-center'>
+											<button 
+												className='btn search-header-result__btn' 
+												onClick={handelLinkToAllContent}
+												>All results
+											</button>
+										</li>
+									</Fragment>
+								}
+							</ul>
 						</div>
 					</Nav>}
 					{isImportentSettings && <Nav className="profile">			

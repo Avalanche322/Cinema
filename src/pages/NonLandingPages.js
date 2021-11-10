@@ -10,6 +10,7 @@ import Loader from "../components/app/Loader";
 import Movies from "./Movies";
 import Settings from "./Settings";
 import SearchPage from "./SearchPage";
+import Movie from "./Movie";
 
 const NonLandingPages = () => {
 	const loading_bg = useSelector(state => state.app.loading_bg);
@@ -39,7 +40,8 @@ const NonLandingPages = () => {
 				<PrivateRoute path="/settings" component={Settings} />
 				<PrivateRoute path="/favorite" component={Favorite} />
 				<PrivateRoute path="/contents/:categoryUrl" component={Movies} />
-				<Route path="/search=:query" component={SearchPage} />
+				<PrivateRoute path="/search=:query" component={SearchPage} />
+				<PrivateRoute path="/content/:type/overview=:id" component={Movie} />
 			</main>
 			<Footer/>
 		</>

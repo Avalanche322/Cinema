@@ -11410,8 +11410,14 @@ ul {
 @media (min-width: 768px) {
   .search-header__input {
     position: absolute;
-    width: 30% !important;
-    left: 24%;
+    width: 300px !important;
+    right: 42%;
+  }
+}
+@media (min-width: 870px) {
+  .search-header__input {
+    width: 350px !important;
+    right: 46%;
   }
 }
 .search-header__input-hidden {
@@ -11419,6 +11425,40 @@ ul {
   padding: 0 !important;
   border: 0 !important;
   opacity: 0;
+}
+.search-header__result {
+  background: #1f1f1f;
+  top: 60px;
+  right: 46%;
+  width: 350px;
+}
+
+.search-header-result__img {
+  max-width: 50px;
+}
+.search-header-result__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.search-header-result__title {
+  font-size: 18px !important;
+}
+.search-header-result__subtitle {
+  color: rgba(255, 255, 255, 0.8);
+}
+.search-header-result__btn {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+.search-header-result__btn:hover {
+  color: #fff !important;
+}
+.search-header-result__link {
+  color: #fff !important;
+  transition: all 0.3s ease;
+}
+.search-header-result__link:hover {
+  background: #2a2a2a !important;
 }
 
 /*======================Hero======================*/
@@ -11631,7 +11671,7 @@ ul {
   margin-top: 100px;
 }
 
-/*======================Movie======================*/
+/*======================Contents======================*/
 .movies:hover .movies__title-arrow {
   opacity: 1 !important;
 }
@@ -11743,6 +11783,11 @@ ul {
 }
 .show-all-movies__text {
   transition: all 0.3s ease;
+}
+
+/*======================Movie======================*/
+.movie {
+  margin-top: 70px;
 }
 
 /*======================Overview======================*/
@@ -12030,6 +12075,11 @@ ul {
 @media (min-width: 992px) {
   .container-md {
     max-width: 1000px !important;
+  }
+}
+@media (min-width: 1200px) {
+  .container-md {
+    max-width: 1200px !important;
   }
 }
 @media (min-width: 1400px) {
