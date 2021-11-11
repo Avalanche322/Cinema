@@ -496,6 +496,9 @@ ul{
 		transition: all 0.3s ease;
 		color: $orange-intense;
 	}
+	&__cell{
+		width: calc(52% / 4);
+	}
 }
 /*======================Payment======================*/
 .payment{
@@ -512,10 +515,10 @@ ul{
 		background: transparent;
 		border: none;
 		outline: none;
-		color: $body-color;
+		color: #fff;
 		font-weight: 500;
 		&::placeholder{
-			color: $body-color;
+			color: rgba(255, 255, 255, 0.6);
 		}
 		&:focus{
 			opacity: 0.8;
@@ -527,6 +530,7 @@ ul{
 	&__number{
 		font-size: 18px;
 		letter-spacing: 2px;
+		
 	}
 	&__ccv{
 		width: 60px;

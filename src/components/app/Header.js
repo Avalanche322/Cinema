@@ -1,4 +1,4 @@
-import { useState, useEffect, memo, Fragment } from "react";
+import { useState, useEffect, memo, Fragment, useRef } from "react";
 import { Navbar, Container, Nav, Dropdown, Button, Form, InputGroup } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import fullLogo from '../../img/full-logo.png';
@@ -12,50 +12,62 @@ import { FaSearch, FaTimes } from 'react-icons/all';
 const Header = () => {
 	const [isActive, setIsActive] = useState(false);
 	const [isHeaderHidden, setIsHeaderHidden] = useState(false);
-	const [showInput, setShowInput] = useState(false);
-	const [search, setSearch] = useState('');
 	const [prevScrollpos, setPrevScrollpos] = useState(window.pageYOffset);
 	const [isTop, setIsTop] = useState(window.pageYOffset === 0);
+	let profileRef = useRef();
+	const dispatch = useDispatch();
+	const history = useHistory();
+	// user
+	// eslint-disable-next-line no-unused-vars
+	const rerenderComponent = useSelector(state => state.app.rerender_component);
 	const currentUser = useSelector(state => state.user.user);
 	const has_plan = useSelector(state => state.user.settings?.has_plan);
 	const has_card = useSelector(state => state.user.settings?.has_card);
 	const sing_in = useSelector(state => state.user.settings?.sing_in);
 	const isImportentSettings = currentUser && has_plan && has_card;
-	const isMobileDevise = window.innerWidth <= 768;
-	// eslint-disable-next-line no-unused-vars
-	const rerenderComponent = useSelector(state => state.app.rerender_component);
-	const dispatch = useDispatch();
-	const history = useHistory();
 	// search contents
+	const [showInput, setShowInput] = useState(false);
+	const [search, setSearch] = useState('');
+	const [showProfile, setShowProfile] = useState(false);
 	const contents = useSelector(state => state.contents.searchList.slice(0, 5));
 	const [notFound, setNotFound] = useState(true);
+	let searchRef = useRef();
 	const handlerSidebar = () =>{
 		setIsActive(!isActive);
 		if(window.innerWidth <= 768){
 			document.body.classList.toggle('overflow-hidden');
 		}
 	}
-	useEffect(() =>{		
+	useEffect(() =>{
 		let hendler = () =>{
 			const currentScrollPos = window.pageYOffset;
 			setIsHeaderHidden(prevScrollpos < currentScrollPos);
 			setPrevScrollpos(currentScrollPos);
+			setShowProfile(false);
+			setShowInput(false);
+			window.pageYOffset !== 0 ? setIsTop(false) : setIsTop(true);
 		}
 		document.addEventListener("scroll", hendler)
 		return () =>{
 			document.removeEventListener("scroll", hendler)
 		};	
 	});
-	useEffect(() =>{		
-		let hendler = () =>{
-			window.pageYOffset !== 0 ? setIsTop(false) : setIsTop(true)
+	useEffect(() =>{
+		let hendler = (event) =>{
+			if(!profileRef.current.contains(event.target)){
+				setShowProfile(false);
+			}
+			if(!searchRef.current.contains(event.target)){
+				setShowInput(false);
+			}
 		}
-		document.addEventListener("scroll", hendler)
+		document.addEventListener("mousedown", hendler)
 		return () =>{
-			document.removeEventListener("scroll", hendler)
+			document.removeEventListener("mousedown", hendler)
 		};	
 	});
 	async function handleLogout() {
+		setShowProfile(false);
 		try {
 			dispatch(logout());
 		} catch(e) {
@@ -133,8 +145,10 @@ const Header = () => {
 									My Favorite
 								</NavLink>
 						</Nav>}
-						<div className="header__search search-header ms-md-2 d-flex align-items-center">
-							<InputGroup className={`${showInput ? '' : 'search-header__input-hidden'} search-header__input`}>
+						{isImportentSettings && <div className="header__search search-header ms-md-2 d-flex align-items-center">
+							<InputGroup 
+								ref={searchRef}
+								className={`${showInput ? '' : 'search-header__input-hidden'} search-header__input`}>
 								<Form.Control
 									type="text"
 									className='border-white'
@@ -201,18 +215,19 @@ const Header = () => {
 									</Fragment>
 								}
 							</ul>
-						</div>
+						</div>}
 					</div>
 					{isImportentSettings && <Nav className="profile">
-						<Dropdown>
+						<Dropdown show={showProfile} ref={profileRef}>
 							<Dropdown.Toggle 
 								as="img" 
 								src={currentUser.photoURL} 
 								alt="user avatar"
 								className="profile__avatar rounded-circle"
-								id="profile-avatar" />
+								id="profile-avatar"
+								onClick={() => {setShowProfile(!showProfile)}} />
 							<Dropdown.Menu variant="dark" id="profile-menu">
-								<Dropdown.Item href="/settings/profile">
+								<Dropdown.Item href="/settings/profile" onClick={() => {setShowProfile(false)}}>
 									Settings
 								</Dropdown.Item>
 								<Dropdown.Item 

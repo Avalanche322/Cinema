@@ -11606,6 +11606,9 @@ ul {
   transition: all 0.3s ease;
   color: #f25900;
 }
+.platform__cell {
+  width: calc(52% / 4);
+}
 
 /*======================Payment======================*/
 .payment__body {
@@ -11625,7 +11628,7 @@ ul {
   font-weight: 500;
 }
 .payment__data::placeholder {
-  color: #fff;
+  color: rgba(255, 255, 255, 0.6);
 }
 .payment__data:focus {
   opacity: 0.8;

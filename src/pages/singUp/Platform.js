@@ -9,15 +9,16 @@ import { changeSettings } from "../../redux/actions";
 
 const Platform = () => {
 	const plans = [
-		{id:0, title: "Plan 1", price: "€8,99", video: "Best", resolution: "4K + HDR"},
-		{id:2, title: "Plan 2", price: "€9,99", video: "Best", resolution: "4K + HDR"},
+		{id:0, title: "Plan 1", price: "€8,99", video: "Good", resolution: "720p"},
+		{id:2, title: "Plan 2", price: "€9,99", video: "Better", resolution: "1080p"},
 		{id:3, title: "Plan 3", price: "€11,99", video: "Best", resolution: "4K + HDR"},
+		{id:4, title: "Plan 4", price: "€89,90", video: "Best", resolution: "4K + HDR"},
 	]
 	const dispatch = useDispatch();
 	const plan = useSelector(state => state.user.settings?.plan);
 	const loading = useSelector(state => state.app.loading);
 	const error = useSelector(state => state.app.error);
-	const [selectPlan, setSelectPlan] = useState(plan ?? plans[plans.length - 1]);
+	const [selectPlan, setSelectPlan] = useState(plan ?? plans[plans.length - 2]);
 	const history = useHistory();
 	useEffect(() => {
 		// title for page
@@ -93,7 +94,7 @@ const Platform = () => {
 									<td>Video quality</td>
 									{plans.map(plan => (
 										<React.Fragment key={plan.id}>
-										<td className={`text-center ${selectPlan.id === plan.id ? 'platform__active' : ''}`}>{plan.video}</td>
+										<td className={`text-center platform__cell ${selectPlan.id === plan.id ? 'platform__active' : ''}`}>{plan.video}</td>
 										</React.Fragment>
 									))}
 								</tr>
@@ -101,7 +102,7 @@ const Platform = () => {
 									<td>Resolution</td>
 									{plans.map(plan => (
 										<React.Fragment key={plan.id}>
-										<td className={`text-center text-nowrap ${selectPlan.id === plan.id ? 'platform__active' : ''}`}>{plan.resolution}</td>
+										<td className={`text-center platform__cell text-nowrap ${selectPlan.id === plan.id ? 'platform__active' : ''}`}>{plan.resolution}</td>
 										</React.Fragment>
 									))}
 								</tr>
@@ -109,7 +110,7 @@ const Platform = () => {
 									<td>Watch on your TV, computer, mobile phone and tablet</td>
 									{plans.map(plan => (
 										<React.Fragment key={plan.id}>
-										<td className={`text-center ${selectPlan.id === plan.id ? 'platform__active' : ''}`}>
+										<td className={`text-center platform__cell ${selectPlan.id === plan.id ? 'platform__active' : ''}`}>
 											<BiCheck className="me-1 fs-3"/>
 										</td>
 										</React.Fragment>
