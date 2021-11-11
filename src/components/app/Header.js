@@ -1,5 +1,5 @@
 import { useState, useEffect, memo, Fragment } from "react";
-import { Navbar, Container, Nav, Dropdown, Button, Form } from "react-bootstrap";
+import { Navbar, Container, Nav, Dropdown, Button, Form, InputGroup } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import fullLogo from '../../img/full-logo.png';
 import { useDispatch } from "react-redux";
@@ -21,6 +21,7 @@ const Header = () => {
 	const has_card = useSelector(state => state.user.settings?.has_card);
 	const sing_in = useSelector(state => state.user.settings?.sing_in);
 	const isImportentSettings = currentUser && has_plan && has_card;
+	const isMobileDevise = window.innerWidth <= 768;
 	// eslint-disable-next-line no-unused-vars
 	const rerenderComponent = useSelector(state => state.app.rerender_component);
 	const dispatch = useDispatch();
@@ -87,7 +88,7 @@ const Header = () => {
 	const handelShowInput = () => {
 		dispatch(clearSearchContentsByName());
 		setSearch('');
-		setShowInput(!showInput);
+		setShowInput(false);
 	}
 	const handelLinkToContent = (id, type) => {
 		dispatch(searchMovieById(id, type));
@@ -110,40 +111,53 @@ const Header = () => {
 						<img className="logo__img" src={fullLogo} alt="logo" />
 					</NavLink>
 				</Navbar.Brand>
-				<nav className="w-100 d-flex align-items-center justify-content-end position-relative">
-					{isImportentSettings && <Nav className={`mx-auto header__menu px-md-0 pt-md-0 pt-5 px-3 
-					flex-md-row flex-column ${isActive ? "active" : ''}`}>
-						<NavLink 
-							className={`menu__link link-color fs-5 white-80 lh-lg me-md-3 ${isActive ? "active" : ''}
-								${showInput ? 'invisible' : ''}`}
-							activeClassName="menu__link-active opacity-100"
-							onClick={handlerSidebar.bind(null)}
-							exact
-							to="/home">
-							Home
-						</NavLink>
-						<NavLink 
-							className={`menu__link link-color fs-5 white-80 lh-lg ${isActive ? "active" : ''} 
-								${showInput ? 'invisible' : ''}`}
-							activeClassName="menu__link-active opacity-100"
-							onClick={handlerSidebar.bind(null)}
-							to="/favorite">
-							My Favorite
-						</NavLink>
+				<nav className="w-100 d-flex align-items-center justify-content-end">
+					<div className='mx-md-auto d-flex'>
+						{isImportentSettings && <Nav className={`header__menu px-md-0 pt-md-0 pt-5 px-3 
+							flex-md-row flex-column ${isActive ? "active" : ''}`}>
+								<NavLink 
+									className={`menu__link link-color fs-5 white-80 lh-lg me-md-3 ${isActive ? "active" : ''}
+										${showInput ? 'd-none' : ''}`}
+									activeClassName="menu__link-active opacity-100"
+									onClick={handlerSidebar.bind(null)}
+									exact
+									to="/home">
+									Home
+								</NavLink>
+								<NavLink 
+									className={`menu__link link-color fs-5 white-80 lh-lg ${isActive ? "active" : ''} 
+										${showInput ? 'd-none' : ''}`}
+									activeClassName="menu__link-active opacity-100"
+									onClick={handlerSidebar.bind(null)}
+									to="/favorite">
+									My Favorite
+								</NavLink>
+						</Nav>}
 						<div className="header__search search-header ms-md-2 d-flex align-items-center">
-							<Form.Control 
-								type="text"
-								placeholder='Movies and Serials'
-								onKeyDown={handelKeyDown}
-								value={search}
-								onChange={(e) => handelInput(e.target.value)}
-								className={`search-header__input ${showInput ? '' : 'search-header__input-hidden'}`} />
-							<Button className='search-header__btn' onClick={handelShowInput}>
-								{showInput ? <FaTimes/> : <FaSearch/>}
+							<InputGroup className={`${showInput ? '' : 'search-header__input-hidden'} search-header__input`}>
+								<Form.Control
+									type="text"
+									className='border-white'
+									placeholder='Movies and Serials'
+									onKeyDown={handelKeyDown}
+									value={search}
+									onChange={(e) => handelInput(e.target.value)}
+									aria-describedby="search-inpit"/>
+								<Button 
+									id="search-inpit" 
+									onClick={handelShowInput} 
+									className='search-header__input-btn'>
+									<FaTimes/>
+								</Button>
+							</InputGroup>
+							<Button 
+								className={`search-header__btn ${showInput ? 'd-none' : ''}`} 
+								onClick={() => setShowInput(true)}>
+								<FaSearch/>
 							</Button>
 							<ul 
 								className={`search-header__result search-header-result position-absolute rounded-3
-								${showInput && !!contents.length ? '' : 'invisible'}`}>
+								${showInput && !!contents.length ? '' : 'search-header__input-hidden'}`}>
 								{notFound // if not foud see that else result
 								? <li className='py-3 ps-3 pe-5'>
 										Not Found
@@ -188,26 +202,26 @@ const Header = () => {
 								}
 							</ul>
 						</div>
-					</Nav>}
-					{isImportentSettings && <Nav className="profile">			
-							<Dropdown>
-								<Dropdown.Toggle 
-									as="img" 
-									src={currentUser.photoURL} 
-									alt="user avatar"
-									className="profile__avatar rounded-circle"
-									id="profile-avatar" />
-								<Dropdown.Menu variant="dark" id="profile-menu">
-									<Dropdown.Item href="/settings/profile">
-										Settings
-									</Dropdown.Item>
-									<Dropdown.Item 
-										className="profile__link" 
-										onClick={handleLogout.bind(null)}
-										>Log Out
-									</Dropdown.Item>
-								</Dropdown.Menu>
-							</Dropdown>
+					</div>
+					{isImportentSettings && <Nav className="profile">
+						<Dropdown>
+							<Dropdown.Toggle 
+								as="img" 
+								src={currentUser.photoURL} 
+								alt="user avatar"
+								className="profile__avatar rounded-circle"
+								id="profile-avatar" />
+							<Dropdown.Menu variant="dark" id="profile-menu">
+								<Dropdown.Item href="/settings/profile">
+									Settings
+								</Dropdown.Item>
+								<Dropdown.Item 
+									className="profile__link" 
+									onClick={handleLogout.bind(null)}
+									>Log Out
+								</Dropdown.Item>
+							</Dropdown.Menu>
+						</Dropdown>
 					</Nav>}
 					{sing_in && !isImportentSettings && 
 						<Button className="header__btn link-color white-60 fs-5" onClick={handleLogout.bind(null)}>Log Out</Button>}

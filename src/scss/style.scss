@@ -289,18 +289,19 @@ ul{
 		}
 	}
 	&__input{
-		@media (min-width: 768px) {
-			position: absolute;
-			width: 300px !important;
-			right: 42%;
-		}
-		@media (min-width: 870px) {
-			width: 350px !important;
-			right: 46%;
+		width: 350px !important;
+		@media (max-width: 768px) {
+			position: absolute !important;
+			width: 100% !important;
+			z-index: 100;
+			left: 0;
 		}
 	}
 	&__input-hidden{
+		cursor: default !important;
+		visibility: hidden ;
 		width: 0 !important;
+		height: 0 !important;
 		padding: 0 !important;
 		border: 0 !important;
 		opacity: 0;
@@ -308,8 +309,16 @@ ul{
 	&__result{
 		background: $graphitic;
 		top: 60px;
-		right: 46%;
 		width: 350px;
+		@media (max-width: 768px) {
+			width: 100%;
+			left: 0;
+		}
+	}
+	&__input-btn{
+		background: #fff !important;
+		color: $gray-light !important;
+		border-color: #fff !important;
 	}
 }
 .search-header-result{
