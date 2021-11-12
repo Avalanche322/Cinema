@@ -107,7 +107,7 @@ const SingUp = () => {
 				</p>
 				<BiChevronLeft 
 					onClick={back} 
-					className={`back position-absolute top-50 rounded-circle ${loading ? 'disabled-link' : ''}`}
+					className={`authentication__back position-absolute top-50 rounded-circle ${loading ? 'disabled-link' : ''}`}
 				/>
 			</div>
 			<div className="_ibg position-absolute h-100 w-100 top-0 start-0">

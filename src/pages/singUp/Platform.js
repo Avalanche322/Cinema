@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { BiChevronLeft, BiCheck } from "react-icons/all";
-import { Button, Form, Alert, Table, Spinner } from "react-bootstrap";
+import { Button, Form, Alert, Table, Spinner, Container } from "react-bootstrap";
 import fullLogo from '../../img/full-logo.png';
 import banner from "../../img/banner.webp";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,7 +34,7 @@ const Platform = () => {
 		history.goBack();
 	};
 	return (
-		<>
+		<Container fluid='md'>
 			<div className="authentication platform min-vh-100 d-flex justify-content-center align-items-center">
 				<div className="platform__body authentication__body p-4 rounded-3 position-relative">
 					<div className="mb-4">
@@ -59,55 +59,59 @@ const Platform = () => {
 							</li>
 						</ul>
 					</div>
-					<Form onSubmit={handleSubmit} className="mb-3">
-						<div className="d-flex justify-content-center justify-content-md-end">
-						{plans.map(plan => (						
-							<div key={plan.id}>
-								<input 
-									className="platform__plan-radio" 
-									type="radio"
-									name="plan"
-									id={`plan_${plan.id}`}
-									value={plan}
-									onChange={() => setSelectPlan(plan)}
-									checked={plan.id === selectPlan.id}
-									disabled={loading}
-									hidden/>
-								<label 
-									className="platform__plan-item ms-3 rounded-1 p-4" 
-									htmlFor={`plan_${plan.id}`}			
-								>{plan.title}</label>
+					<Form onSubmit={handleSubmit} className="mb-3 d-flex flex-column platform__btn btn-platform">
+						<div className='d-flex justify-content-center justify-content-md-end'>
+							<div className="d-flex btn-platform__row">
+								{plans.map(plan => (						
+									<div 
+										onClick={() => setSelectPlan(plan)}
+										key={plan.id} 
+										className="btn-platform__item rounded-1 py-lg-4 py-3 text-center me-3">
+										<input 
+											className="btn-platform__radio" 
+											type="radio"
+											name="plan"
+											id={`plan_${plan.id}`}
+											value={plan}
+											checked={plan.id === selectPlan.id}
+											disabled={loading}
+											hidden/>
+										<label 
+											
+											htmlFor={`plan_${plan.id}`}			
+										>{plan.title}</label>
+									</div>
+								))}
 							</div>
-						))}
 						</div>
 						<Table className="platform__plan">
-							<tbody>
-								<tr className="platform__row">
-									<td>Monthly price</td>
+							<tbody className='d-flex flex-column'>
+								<tr className="platform__row d-flex flex-wrap">
+									<td className='platform__cell-title'>Monthly price</td>
 									{plans.map(plan => (
 										<React.Fragment key={plan.id}>
-										<td className={`text-center ${selectPlan.id === plan.id ? 'platform__active' : ''}`}>{plan.price}</td>
+										<td className={`text-center platform__cell ${selectPlan.id === plan.id ? 'platform__active' : ''}`}>{plan.price}</td>
 										</React.Fragment>
 									))}
 								</tr>
-								<tr className="platform__row">
-									<td>Video quality</td>
+								<tr className="platform__row d-flex flex-wrap">
+									<td className='platform__cell-title'>Video quality</td>
 									{plans.map(plan => (
 										<React.Fragment key={plan.id}>
 										<td className={`text-center platform__cell ${selectPlan.id === plan.id ? 'platform__active' : ''}`}>{plan.video}</td>
 										</React.Fragment>
 									))}
 								</tr>
-								<tr className="platform__row">
-									<td>Resolution</td>
+								<tr className="platform__row d-flex flex-wrap">
+									<td className='platform__cell-title'>Resolution</td>
 									{plans.map(plan => (
 										<React.Fragment key={plan.id}>
 										<td className={`text-center platform__cell text-nowrap ${selectPlan.id === plan.id ? 'platform__active' : ''}`}>{plan.resolution}</td>
 										</React.Fragment>
 									))}
 								</tr>
-								<tr className="platform__row">
-									<td>Watch on your TV, computer, mobile phone and tablet</td>
+								<tr className="platform__row d-flex flex-wrap">
+									<td className='platform__cell-title'>Watch on your TV, computer, mobile phone and tablet</td>
 									{plans.map(plan => (
 										<React.Fragment key={plan.id}>
 										<td className={`text-center platform__cell ${selectPlan.id === plan.id ? 'platform__active' : ''}`}>
@@ -135,7 +139,7 @@ const Platform = () => {
 					</Form>
 					<BiChevronLeft 
 						onClick={back} 
-						className={`back position-absolute top-50 rounded-circle ${loading ? 'disabled-link' : ''}`}
+						className={`authentication__back position-absolute top-50 rounded-circle ${loading ? 'disabled-link' : ''}`}
 					/>
 				</div>
 				<div className="_ibg position-absolute h-100 w-100 top-0 start-0">
@@ -143,7 +147,7 @@ const Platform = () => {
 					<div className="_ibg__shadow position-absolute w-100 h-100 top-0 start-0"></div>
 				</div>
 			</div>
-		</>
+		</Container>
 	);
 }
  

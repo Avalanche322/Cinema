@@ -11190,24 +11190,6 @@ ul {
   background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 100%, rgba(0, 0, 0, 0.7) 100%, rgba(0, 0, 0, 0.7) 100%);
 }
 
-.back {
-  cursor: pointer;
-  left: -15px;
-  background: #fff;
-  color: #141414;
-  font-size: 24px;
-  width: 30px;
-  height: 30px;
-  transition: all 0.3s ease;
-}
-.back:hover {
-  background: rgba(255, 255, 255, 0.8);
-  left: -20px;
-}
-.back:active {
-  transform: scale(0.96);
-}
-
 .btn-addons {
   background: #fff !important;
   border: none !important;
@@ -11312,9 +11294,6 @@ ul {
   width: 50px;
   height: 50px;
   object-fit: cover;
-}
-.profile__link {
-  color: #fff !important;
 }
 
 .header {
@@ -11579,12 +11558,27 @@ ul {
   width: 120px;
   height: 35px;
 }
+.authentication__back {
+  position: absolute;
+  cursor: pointer;
+  left: -15px;
+  background: #fff;
+  color: #141414;
+  font-size: 24px;
+  min-width: 30px;
+  min-height: 30px;
+  transition: all 0.3s ease;
+}
+.authentication__back:hover {
+  background: rgba(255, 255, 255, 0.8);
+  left: -20px;
+}
+.authentication__back:active {
+  transform: scale(0.96);
+}
 
 /*======================Forgot Password======================*/
 /*======================Platform======================*/
-.platform__body {
-  width: 850px;
-}
 .platform__check {
   color: #f60;
 }
@@ -11594,20 +11588,49 @@ ul {
 .platform__row {
   border-color: rgba(255, 255, 255, 0.4);
 }
-.platform__plan-item {
-  background: #f60;
-  cursor: pointer;
-}
-.platform__plan-radio:checked + .platform__plan-item {
-  transition: all 0.3s ease;
-  background: #f25900;
-}
 .platform__active {
   transition: all 0.3s ease;
   color: #f25900;
 }
 .platform__cell {
-  width: calc(52% / 4);
+  width: calc(50% / 4);
+  flex: 1 1 auto;
+}
+.platform__cell-title {
+  width: 48%;
+  flex: 0 0 auto;
+}
+@media (max-width: 768px) {
+  .platform__cell-title {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+.btn-platform__item {
+  background: #f60;
+  cursor: pointer;
+  width: calc(50% / 4);
+  flex: 1 1 auto;
+}
+@media (max-width: 768px) {
+  .btn-platform__item {
+    width: 100%;
+  }
+}
+.btn-platform__row {
+  width: 50%;
+}
+@media (max-width: 768px) {
+  .btn-platform__row {
+    width: 100%;
+  }
+}
+.btn-platform__radio:checked + .btn-platform__item {
+  transition: all 0.3s ease;
+  background: #f25900;
 }
 
 /*======================Payment======================*/
@@ -12059,6 +12082,43 @@ ul {
   border-color: #fff !important;
 }
 
+.settings-plan__cell-title {
+  width: 48%;
+  flex: 0 0 auto;
+}
+@media (max-width: 992px) {
+  .settings-plan__cell-title {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+.settings-plan-btn__item {
+  background: #f60;
+  cursor: pointer;
+  width: calc(50% / 4);
+  flex: 1 1 auto;
+}
+@media (max-width: 992px) {
+  .settings-plan-btn__item {
+    width: 100%;
+  }
+}
+.settings-plan-btn__row {
+  width: 50%;
+}
+@media (max-width: 992px) {
+  .settings-plan-btn__row {
+    width: 100%;
+  }
+}
+.settings-plan-btn__radio:checked + .settings-plan-btn__item {
+  transition: all 0.3s ease;
+  background: #f25900;
+}
+
 /*======================Footer======================*/
 .footer {
   background: #1f1f1f;
@@ -12081,6 +12141,9 @@ ul {
 }
 
 /*======================Change container Bootstrap======================*/
+.container-md {
+  padding: 0 15px !important;
+}
 @media (min-width: 768px) {
   .container-md {
     max-width: 900px !important;

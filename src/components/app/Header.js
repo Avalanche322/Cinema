@@ -61,7 +61,9 @@ const Header = () => {
 				setShowInput(false);
 			}
 		}
-		document.addEventListener("mousedown", hendler)
+		if(isImportentSettings){
+			document.addEventListener("mousedown", hendler);
+		}
 		return () =>{
 			document.removeEventListener("mousedown", hendler)
 		};	
@@ -231,7 +233,7 @@ const Header = () => {
 									Settings
 								</Dropdown.Item>
 								<Dropdown.Item 
-									className="profile__link" 
+									
 									onClick={handleLogout.bind(null)}
 									>Log Out
 								</Dropdown.Item>

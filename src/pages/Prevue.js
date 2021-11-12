@@ -34,7 +34,7 @@ const Prevue = () => {
 							<span className="white-80 hero__sub-price">*Savings compared to 12 months (107,88 €) of the monthly subscription price.</span>
 						</div>}
 						{sing_in && 
-							<div className="d-flex mt-3">
+							<div className="d-flex mt-3 justify-content-md-start justify-content-center">
 								<Link 
 									to="/sing-up/platform" 
 									className="hero__btn py-2 px-4 rounded-3 text-uppercase text-center"

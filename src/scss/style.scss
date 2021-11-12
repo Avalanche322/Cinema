@@ -70,23 +70,6 @@ ul{
 		background: linear-gradient(to top,rgba(0,0,0,.7) 100%,rgba(0,0,0,0.7) 100%,rgba(0,0,0,.7) 100%);
 	}
 }
-.back{
-	cursor: pointer;
-	left: -15px;
-	background: $body-color;
-	color: $body-bg;
-	font-size: 24px;
-	width: 30px;
-	height: 30px;
-	transition: all 0.3s ease;
-	&:hover{
-		background: rgba(255, 255, 255, 0.8);
-		left: -20px;
-	}
-	&:active{
-		transform: scale(.96);
-	}
-}
 .btn-addons{
 	background: #fff !important;
 	border: none !important;
@@ -190,9 +173,6 @@ ul{
 		width: 50px;
 		height: 50px;
 		object-fit: cover;
-	}
-	&__link{
-		color: $body-color !important;
 	}
 }
 .header{
@@ -463,6 +443,24 @@ ul{
 		width: 120px;
 		height: 35px;
 	}
+	&__back{
+		position: absolute;
+		cursor: pointer;
+		left: -15px;
+		background: $body-color;
+		color: $body-bg;
+		font-size: 24px;
+		min-width: 30px;
+		min-height: 30px;
+		transition: all 0.3s ease;
+		&:hover{
+			background: rgba(255, 255, 255, 0.8);
+			left: -20px;
+		}
+		&:active{
+			transform: scale(.96);
+		}
+	}
 }
 /*======================Forgot Password======================*/
 .forgot-passoword{
@@ -472,9 +470,6 @@ ul{
 }
 /*======================Platform======================*/
 .platform{
-	&__body{
-		width: 850px;
-	}
 	&__check{
 		color: $orange;
 	}
@@ -484,20 +479,44 @@ ul{
 	&__row{
 		border-color: rgba(255, 255, 255, 0.4);
 	}
-	&__plan-item{
-		background: $orange;
-		cursor: pointer;
-	}
-	&__plan-radio:checked + &__plan-item{
-		transition: all 0.3s ease;
-		background: $orange-intense;
-	}
 	&__active{
 		transition: all 0.3s ease;
 		color: $orange-intense;
 	}
 	&__cell{
-		width: calc(52% / 4);
+		width: calc(50% / 4);
+		flex: 1 1 auto;
+	}
+	&__cell-title{
+		width: 48%;
+		flex: 0 0 auto;
+		@media (max-width: 768px) {
+			width: 100%;
+			text-align: center;
+			font-size: 14px;
+			color: rgba(255, 255, 255, 0.8);
+		}
+	}
+}
+.btn-platform{
+	&__item{
+		background: $orange;
+		cursor: pointer;
+		width: calc(50% / 4);
+		flex: 1 1 auto;
+		@media (max-width: 768px) {
+			width: 100%;
+		}
+	}
+	&__row{
+		width: 50%;
+		@media (max-width: 768px) {
+			width: 100%;
+		}
+	}
+	&__radio:checked + &__item{
+		transition: all 0.3s ease;
+		background: $orange-intense;
 	}
 }
 /*======================Payment======================*/
@@ -962,6 +981,39 @@ ul{
 		@extend %btn-google;
 	}
 }
+.settings-plan{
+	&__cell-title{
+		width: 48%;
+		flex: 0 0 auto;
+		@media (max-width: 992px) {
+			width: 100%;
+			text-align: center;
+			font-size: 14px;
+			color: rgba(255, 255, 255, 0.8);
+		}
+	}
+}
+.settings-plan-btn{
+	&__item{
+		background: $orange;
+		cursor: pointer;
+		width: calc(50% / 4);
+		flex: 1 1 auto;
+		@media (max-width: 992px) {
+			width: 100%;
+		}
+	}
+	&__row{
+		width: 50%;
+		@media (max-width: 992px) {
+			width: 100%;
+		}
+	}
+	&__radio:checked + &__item{
+		transition: all 0.3s ease;
+		background: $orange-intense;
+	}
+}
 /*======================Footer======================*/
 .footer{
 	background: $graphitic;
@@ -984,6 +1036,7 @@ ul{
 }
 /*======================Change container Bootstrap======================*/
 .container-md{
+	padding: 0 15px !important;
 	@media (min-width: 768px) {
 		max-width: 900px !important;
 	}
