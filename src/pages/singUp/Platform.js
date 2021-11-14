@@ -73,7 +73,7 @@ const Platform = () => {
 											name="plan"
 											id={`plan_${plan.id}`}
 											value={plan}
-											checked={plan.id === selectPlan.id}
+											defaultChecked={plan.id === selectPlan.id}
 											disabled={loading}
 											hidden/>
 										<label 
@@ -106,7 +106,7 @@ const Platform = () => {
 									<td className='platform__cell-title'>Resolution</td>
 									{plans.map(plan => (
 										<React.Fragment key={plan.id}>
-										<td className={`text-center platform__cell text-nowrap ${selectPlan.id === plan.id ? 'platform__active' : ''}`}>{plan.resolution}</td>
+										<td className={`text-center platform__cell ${selectPlan.id === plan.id ? 'platform__active' : ''}`}>{plan.resolution}</td>
 										</React.Fragment>
 									))}
 								</tr>

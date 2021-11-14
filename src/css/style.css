@@ -11579,6 +11579,9 @@ ul {
 
 /*======================Forgot Password======================*/
 /*======================Platform======================*/
+.platform__body {
+  width: 850px;
+}
 .platform__check {
   color: #f60;
 }
@@ -11855,7 +11858,7 @@ ul {
   filter: blur(5px);
 }
 .overview__details {
-  max-width: 450px;
+  max-width: 550px;
   z-index: 1;
 }
 .overview__watch {

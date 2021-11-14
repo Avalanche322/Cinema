@@ -29,7 +29,8 @@ const Header = () => {
 	const [showInput, setShowInput] = useState(false);
 	const [search, setSearch] = useState('');
 	const [showProfile, setShowProfile] = useState(false);
-	const contents = useSelector(state => state.contents.searchList.slice(0, 5));
+	const searchList = useSelector(state => state.contents.searchList.slice(0, 5));
+	const [contents, setContents] = useState(searchList);
 	const [notFound, setNotFound] = useState(true);
 	let searchRef = useRef();
 	const handlerSidebar = () =>{
@@ -59,6 +60,8 @@ const Header = () => {
 			}
 			if(!searchRef.current.contains(event.target)){
 				setShowInput(false);
+				setContents([]);
+				setSearch('');
 			}
 		}
 		if(isImportentSettings){
@@ -77,7 +80,7 @@ const Header = () => {
 		}
 	}
 	function handelLinkToAllContent(){
-		dispatch(clearSearchContentsByName());
+		setContents([]);
 		setShowInput(false);
 		setSearch('');
 		history.push(`/search=${search}`);
@@ -90,6 +93,7 @@ const Header = () => {
 	const handelInput = (value) => {
 		if(value){
 			dispatch(searchContentsByName(value, 1));
+			setContents(searchList);
 		}
 		dispatch(clearSearchContentsByName());
 		setSearch(value);
@@ -105,9 +109,10 @@ const Header = () => {
 		setShowInput(false);
 	}
 	const handelLinkToContent = (id, type) => {
+		setContents([]);
 		dispatch(searchMovieById(id, type));
 		setSearch('');
-		setShowInput(!showInput);
+		setShowInput(false);
 	}
 	function timeConvert(n) {
 		var options = {year: 'numeric'};
@@ -147,9 +152,9 @@ const Header = () => {
 									My Favorite
 								</NavLink>
 						</Nav>}
-						{isImportentSettings && <div className="header__search search-header ms-md-2 d-flex align-items-center">
+						{isImportentSettings 
+							&& <div className="header__search search-header ms-md-2 d-flex align-items-center" ref={searchRef}>
 							<InputGroup 
-								ref={searchRef}
 								className={`${showInput ? '' : 'search-header__input-hidden'} search-header__input`}>
 								<Form.Control
 									type="text"
@@ -222,7 +227,7 @@ const Header = () => {
 					{isImportentSettings && <Nav className="profile">
 						<Dropdown show={showProfile} ref={profileRef}>
 							<Dropdown.Toggle 
-								as="img" 
+								as="img"
 								src={currentUser.photoURL} 
 								alt="user avatar"
 								className="profile__avatar rounded-circle"

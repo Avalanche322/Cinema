@@ -19,13 +19,11 @@ const SearchPage = () => {
 	const [hasMore, setHasMore] = useState(true);
 	const [page, setPage] = useState(1);
 	useEffect(() => {
-		if(page === 1){
-			dispatch(searchContentsByName(query, 1));
-		}
+		dispatch(searchContentsByName(query, 1));
 		// eslint-disable-next-line
 	},[])
 	const fetchMoreMovies = () => {
-		if(content.length >= 120){
+		if(page >= 10){
 			setHasMore(false);
 			return
 		}
@@ -37,7 +35,7 @@ const SearchPage = () => {
 			<Container fluid="md">
 				<InfiniteScroll
 					className='d-flex flex-wrap p-3'
-					dataLength={content.length}
+					dataLength={page}
 					next={fetchMoreMovies}
 					hasMore={hasMore}
 					loader={<Loader/>}

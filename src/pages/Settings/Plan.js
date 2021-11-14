@@ -23,7 +23,7 @@ const Plan = () => {
 		dispatch(uploadSettings({ ...settings ,plan: selectPlan}, user))
 	}
 	return (
-		<div className="col-xxl-7 col-md-8">
+		<div className="col-xxl-7 col-md-8 p-0">
 			<h3>Change Plan</h3>
 			{message && <Alert variant='success' className="mt-3 settings__block">{message}</Alert>}
 				<Form onSubmit={handleSubmit} className="mb-3">
@@ -41,7 +41,7 @@ const Plan = () => {
 											name="plan"
 											id={`plan_${plan.id}`}
 											value={plan}
-											checked={plan.id === selectPlan.id}
+											defaultChecked={plan.id === selectPlan.id}
 											disabled={loading}
 											hidden/>
 										<label 				
@@ -73,7 +73,7 @@ const Plan = () => {
 									<td className='settings-plan__cell-title'>Resolution</td>
 									{plans.map(plan => (
 										<React.Fragment key={plan.id}>
-										<td className={`text-center platform__cell text-nowrap ${selectPlan.id === plan.id ? 'platform__active' : ''}`}>{plan.resolution}</td>
+										<td className={`text-center platform__cell ${selectPlan.id === plan.id ? 'platform__active' : ''}`}>{plan.resolution}</td>
 										</React.Fragment>
 									))}
 								</tr>

@@ -470,6 +470,9 @@ ul{
 }
 /*======================Platform======================*/
 .platform{
+	&__body{
+		width: 850px;
+	}
 	&__check{
 		color: $orange;
 	}
@@ -746,7 +749,7 @@ ul{
 		filter: blur(5px);
 	}
 	&__details{
-		max-width: 450px;
+		max-width: 550px;
 		z-index: 1;
 	}
 	&__watch{
