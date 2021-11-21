@@ -23,12 +23,12 @@ const Prevue = () => {
 							<div className="d-md-flex my-3 hero__btns">
 								<div className="d-flex flex-column me-5 w-100 mb-3 mb-md-0">
 									<h3 className="hero__price mb-md-auto mb-3">€8,99 <span className="hero__sub-price white-80">| Month</span></h3>
-									<Link to="/sing-up" className="hero__btn py-3 rounded-3 text-uppercase text-center">Sing up now</Link>
+									<Link to="/sing-up" className="hero__btn py-3 px-2 rounded-3 text-uppercase text-center">Sing up now</Link>
 								</div>
 								<div className="d-flex flex-column w-100">
 									<h3 className="hero__price">€89,90 <span className="hero__sub-price white-80">| Year</span></h3>
 									<span className="hero__sub-price white-80 mb-3">Save over 15%.* </span>
-									<Link to="/sing-up" className="hero__btn py-3 rounded-3 text-uppercase text-center">Save on 12 months</Link>
+									<Link to="/sing-up" className="hero__btn py-3 px-2 rounded-3 text-uppercase text-center">Save on 12 months</Link>
 								</div>
 							</div>
 							<span className="white-80 hero__sub-price">*Savings compared to 12 months (107,88 €) of the monthly subscription price.</span>

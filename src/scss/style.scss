@@ -335,6 +335,13 @@ ul{
 	&__body{
 		z-index: 2;
 	}
+	&__title{
+		font-size: 38px;
+	}
+	&__sub-title{
+		color: $orange;
+		font-size: 28px;
+	}
 	@media (min-width: 768px) {
 		&__block{
 			max-width: 600px;
@@ -342,13 +349,12 @@ ul{
 		&__btns{
 			width: 100%;
 		}
-	}
-	&__title{
-		font-size: 44px;
-	}
-	&__sub-title{
-		color: $orange;
-		font-size: 36px;
+		&__title{
+			font-size: 44px;
+		}
+		&__sub-title{
+			font-size: 36px;
+		}
 	}
 	&__btn{
 		@extend %btn-orange;

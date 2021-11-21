@@ -9,10 +9,10 @@ import { changeSettings } from "../../redux/actions";
 
 const Platform = () => {
 	const plans = [
-		{id:0, title: "Plan 1", price: "€8,99", video: "Good", resolution: "720p"},
-		{id:2, title: "Plan 2", price: "€9,99", video: "Better", resolution: "1080p"},
-		{id:3, title: "Plan 3", price: "€11,99", video: "Best", resolution: "4K + HDR"},
-		{id:4, title: "Plan 4", price: "€89,90", video: "Best", resolution: "4K + HDR"},
+		{id:0, title: "Good", price: "€8,99", video: "Good", resolution: "720p"},
+		{id:2, title: "Better", price: "€9,99", video: "Better", resolution: "1080p"},
+		{id:3, title: "Best", price: "€11,99", video: "Best", resolution: "4K + HDR"},
+		{id:4, title: "Best Year", price: "€89,90", video: "Best Year", resolution: "4K + HDR"},
 	]
 	const dispatch = useDispatch();
 	const plan = useSelector(state => state.user.settings?.plan);

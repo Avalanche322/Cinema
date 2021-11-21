@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { BiChevronLeft } from "react-icons/all";
-import { Button, Form, Alert, Spinner } from "react-bootstrap";
+import { Button, Form, Alert, Spinner, Container } from "react-bootstrap";
 import fullLogo from '../../img/full-logo.png';
 import banner from "../../img/banner.webp";
 import { Link } from "react-router-dom";
@@ -45,89 +45,91 @@ const Payment = ({plan, user,settings}) => {
 		setName(e.target.value);
 	}
 	return (
-		<div className="authentication payment min-vh-100 d-flex justify-content-center align-items-center">
-			<div className="payment__body authentication__body p-4 rounded-3 position-relative">
-				<div className="mb-4">
-						<div className="d-flex">
-							<h2 className="authentication__title"><img className="authentication__logo pb-1" src={fullLogo} alt="logo" /></h2>
-						</div>
-					<span>STEP 3 OF 3</span>
-					<h3>Set up your payment</h3>
-					{error && <Alert className="p-2 mt-2" variant="warning">{error}</Alert>}
-				</div>
-				<Form onSubmit={handleSubmit} className="mb-3">
-					<div className="text-center mt-3">
-						<div className="payment__card d-flex flex-column justify-content-between rounded-3 p-3 mx-auto">
-							<h2 className="payment__card-info text-start">Enter Card Info Below</h2>
-							<div className="d-flex flex-column">
-								<input 
-									className="payment__data payment__number w-100" 
-									type="text" 
-									placeholder="1111 1111 1111 1111" 
-									id="numbar-card"
-									maxLength="19"
-									onChange={handlerNumber}
-									value={number ?? ''}
-									disabled={loading}
-									required />
-								<div className="d-flex mt-2 justify-content-end">
-									<input 
-										className="payment__data payment__month me-3" 
-										type="text" 
-										placeholder="MM/YY" 
-										id="month"
-										maxLength="5"
-										onChange={handlerMonth}
-										value={month ?? ''}
-										disabled={loading}
-										required />
-									<input 
-										className="payment__data payment__ccv" 
-										type="password" 
-										placeholder="CVV" 
-										id="cvv"
-										maxLength="3"
-										onChange={handlerCvv}
-										disabled={loading}
-										required />
-								</div>
+		<Container fluid='md'>
+			<div className="authentication payment min-vh-100 d-flex justify-content-center align-items-center">
+				<div className="payment__body authentication__body p-4 rounded-3 position-relative">
+					<div className="mb-4">
+							<div className="d-flex">
+								<h2 className="authentication__title"><img className="authentication__logo pb-1" src={fullLogo} alt="logo" /></h2>
+							</div>
+						<span>STEP 3 OF 3</span>
+						<h3>Set up your payment</h3>
+						{error && <Alert className="p-2 mt-2" variant="warning">{error}</Alert>}
+					</div>
+					<Form onSubmit={handleSubmit} className="mb-3">
+						<div className="text-center mt-3">
+							<div className="payment__card d-flex flex-column justify-content-between rounded-3 p-3 mx-auto">
+								<h2 className="payment__card-info text-start">Enter Card Info Below</h2>
 								<div className="d-flex flex-column">
 									<input 
-										className="payment__data mt-3" 
+										className="payment__data payment__number w-100" 
 										type="text" 
-										placeholder="Name Surname" 
-										id="card-holder"
-										onChange={handlerName}
+										placeholder="1111 1111 1111 1111" 
+										id="numbar-card"
+										maxLength="19"
+										onChange={handlerNumber}
+										value={number ?? ''}
 										disabled={loading}
 										required />
+									<div className="d-flex mt-2 justify-content-end">
+										<input 
+											className="payment__data payment__month me-3" 
+											type="text" 
+											placeholder="MM/YY" 
+											id="month"
+											maxLength="5"
+											onChange={handlerMonth}
+											value={month ?? ''}
+											disabled={loading}
+											required />
+										<input 
+											className="payment__data payment__ccv" 
+											type="password" 
+											placeholder="CVV" 
+											id="cvv"
+											maxLength="3"
+											onChange={handlerCvv}
+											disabled={loading}
+											required />
+									</div>
+									<div className="d-flex flex-column">
+										<input 
+											className="payment__data mt-3" 
+											type="text" 
+											placeholder="Name Surname" 
+											id="card-holder"
+											onChange={handlerName}
+											disabled={loading}
+											required />
+									</div>
 								</div>
 							</div>
-						</div>
-						<div className="payment__change-paln d-flex justify-content-between align-items-center p-2 rounded-3 mt-3 mx-auto">
-							<div className="d-flex flex-column text-start">
-								<span>{plan.price}/month</span>
-								<span className="white-50">{plan.title}</span>
+							<div className="payment__change-paln d-flex justify-content-between align-items-center p-2 rounded-3 mt-3 mx-auto">
+								<div className="d-flex flex-column text-start">
+									<span>{plan.price}/month</span>
+									<span className="white-50">{plan.title}</span>
+								</div>
+								<Link to="/sing-up/platform" className={`${loading ? 'disabled-link' : ''}`}>Change</Link>
 							</div>
-							<Link to="/sing-up/platform" className={`${loading ? 'disabled-link' : ''}`}>Change</Link>
+							<Button 
+								className="authentication__btn w-50 mt-3" 
+								type="submit"
+								disabled={loading || !cvv || !name || !number}>
+								Start Membership  {loading ? <Spinner as='span' size="sm" animation="border" variant="light"/> : null}
+							</Button>
 						</div>
-						<Button 
-							className="authentication__btn w-50 mt-3" 
-							type="submit"
-							disabled={loading || !cvv || !name || !number}>
-							Start Membership  {loading ? <Spinner as='span' size="sm" animation="border" variant="light"/> : null}
-						</Button>
-					</div>
-				</Form>
-				<BiChevronLeft 
-					onClick={back} 
-					className={`authentication__back position-absolute top-50 rounded-circle ${loading ? 'disabled-link' : ''}`}
-				/>
+					</Form>
+					<BiChevronLeft 
+						onClick={back} 
+						className={`authentication__back position-absolute top-50 rounded-circle ${loading ? 'disabled-link' : ''}`}
+					/>
+				</div>
+				<div className="_ibg position-absolute h-100 w-100 top-0 start-0">
+					<img src={banner} className="h-100 w-100" alt="banner" />
+					<div className="_ibg__shadow position-absolute w-100 h-100 top-0 start-0"></div>
+				</div>
 			</div>
-			<div className="_ibg position-absolute h-100 w-100 top-0 start-0">
-				<img src={banner} className="h-100 w-100" alt="banner" />
-				<div className="_ibg__shadow position-absolute w-100 h-100 top-0 start-0"></div>
-			</div>
-		</div>
+		</Container>
 	);
 }
 
