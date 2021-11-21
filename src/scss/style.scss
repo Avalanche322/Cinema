@@ -267,6 +267,9 @@ ul{
 		&:hover{
 			color: #fff !important;
 		}
+		@media (max-width: 768px) {
+			font-size: 20px !important;
+		}
 	}
 	&__input{
 		width: 350px !important;

@@ -5,19 +5,15 @@ import { uploadSettings } from "../../redux/actions";
 import { BiCheck } from 'react-icons/all';
 
 const Plan = () => {
-	const plans = [
-		{id:0, title: "Good", price: "€8,99", video: "Good", resolution: "720p"},
-		{id:2, title: "Better", price: "€9,99", video: "Better", resolution: "1080p"},
-		{id:3, title: "Best", price: "€11,99", video: "Best", resolution: "4K + HDR"},
-		{id:4, title: "Best Year", price: "€89,90", video: "Best Year", resolution: "4K + HDR"},
-	]
 	const dispatch = useDispatch();
 	const plan = useSelector(state => state.user.settings.plan);
+	const plans = useSelector(state => state.user.plans);
 	const loading = useSelector(state => state.app.loading);
 	const settings = useSelector(state => state.user.settings);
 	const user = useSelector(state => state.user.user);
 	const message = useSelector(state => state.app.message);
 	const [selectPlan, setSelectPlan] = useState(plan ?? plans[plans.length - 1]);
+	console.log(plans);
 	async function handleSubmit(e){
 		e.preventDefault();
 		dispatch(uploadSettings({ ...settings ,plan: selectPlan}, user))
@@ -57,7 +53,7 @@ const Plan = () => {
 									<td className='settings-plan__cell-title'>Monthly price</td>
 									{plans.map(plan => (
 										<React.Fragment key={plan.id}>
-										<td className={`text-center platform__cell ${selectPlan.id === plan.id ? 'platform__active' : ''}`}>{plan.price}</td>
+										<td className={`text-center platform__cell ${selectPlan.id === plan.id ? 'platform__active' : ''}`}>€{plan.price}</td>
 										</React.Fragment>
 									))}
 								</tr>

@@ -16,6 +16,7 @@ import {
 	SHOW_MESSAGE,
 	FETCH_CONTENT_SEARCH_LIST,
 	CLEAR_CONTENT_SEARCH_LIST,
+	UPLOAD_PLANS,
 } from "./types";
 import firebase from "../firebase";
 import profileImg from '../img/user.svg';
@@ -335,7 +336,7 @@ export function changeSettings(state){
 		localStorage.setItem('settings', JSON.stringify(settings));
 	}
 }
-function hasImportantSettings(user, path, isNewUser = true){
+function hasImportantSettings(user, path){
 	return async dispatch => {
 		try{
 			const settingsRef = firebase.database().ref(`users/${user.uid}/settings`);
@@ -359,6 +360,29 @@ function hasImportantSettings(user, path, isNewUser = true){
 			})
 		} catch(e){
 			dispatch(showError(e.message) );
+		}
+	}
+}
+/*Upload Plans*/
+export function uploadPlans(){
+	return async dispatch => {
+		try{
+			dispatch({type: HIDE_ERROR});
+			dispatch({type: SHOW_LOADER});
+			const plansRef = firebase.database().ref(`plans`);
+			await plansRef.once('value', (snapshot) => {
+				const plansVal = snapshot.val();
+				const arrPlans = [];
+				for (const id in plansVal) {
+					arrPlans.push({...plansVal[id]});
+				}
+				arrPlans.sort((a , b) => a.id - b.id)
+				dispatch({type: UPLOAD_PLANS, payload: arrPlans});
+			})
+			dispatch({type: HIDE_LOADER});
+		} catch(e){
+			dispatch(showError(e.message) );
+			dispatch({type: HIDE_LOADER});
 		}
 	}
 }
@@ -541,6 +565,7 @@ export function unsubscribe() {
 				dispatch({type: INIT_USER, payload: user});
 				localStorage.setItem('user', JSON.stringify(user)); // set local user
 				dispatch(fetchData(user));
+				dispatch(uploadPlans());
 			} else{
 				dispatch({type: INIT_USER, payload: {}});
 				dispatch({type: CHANGE_USER_SETTINGS, payload: {}});

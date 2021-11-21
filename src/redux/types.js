@@ -1,5 +1,6 @@
 export const INIT_USER = 'INIT_USER';
 export const CHANGE_USER_SETTINGS = 'CHANGE_USER_SETTINGS';
+export const UPLOAD_PLANS = 'UPLOAD_PLANS';
 export const SHOW_LOADER = 'APP/SHOW_LOADER'
 export const HIDE_LOADER = 'APP/HIDE_LOADER'
 export const SHOW_BG_LOADER = 'APP/SHOW_BG_LOADER'

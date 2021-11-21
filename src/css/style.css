@@ -11386,6 +11386,11 @@ ul {
 .search-header__btn:hover {
   color: #fff !important;
 }
+@media (max-width: 768px) {
+  .search-header__btn {
+    font-size: 20px !important;
+  }
+}
 .search-header__input {
   width: 350px !important;
 }
