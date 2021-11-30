@@ -13,7 +13,7 @@ const Platform = () => {
 	const plans = useSelector(state => state.user.plans);
 	const loading = useSelector(state => state.app.loading);
 	const error = useSelector(state => state.app.error);
-	const [selectPlan, setSelectPlan] = useState(currentPlan ?? plans[plans.length - 2]);
+	const [selectPlan, setSelectPlan] = useState(currentPlan ?? {id: 2});
 	const history = useHistory();
 	useEffect(() => {
 		// title for page
@@ -34,7 +34,7 @@ const Platform = () => {
 	};
 	return (
 		<Container fluid='md'>
-			{plans && <div className="authentication platform min-vh-100 d-flex justify-content-center align-items-center">
+			<div className="authentication platform min-vh-100 d-flex justify-content-center align-items-center">
 				<div className="platform__body authentication__body p-4 rounded-3 position-relative">
 					<div className="mb-4">
 							<div className="d-flex">
@@ -75,8 +75,7 @@ const Platform = () => {
 											defaultChecked={plan.id === selectPlan.id}
 											disabled={loading}
 											hidden/>
-										<label 
-											
+										<label 	
 											htmlFor={`plan_${plan.id}`}			
 										>{plan.title}</label>
 									</div>
@@ -145,7 +144,7 @@ const Platform = () => {
 					<img src={banner} className="h-100 w-100" alt="banner" />
 					<div className="_ibg__shadow position-absolute w-100 h-100 top-0 start-0"></div>
 				</div>
-			</div>}
+			</div>
 		</Container>
 	);
 }
