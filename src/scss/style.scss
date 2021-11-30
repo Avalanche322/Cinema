@@ -633,6 +633,7 @@ ul{
 		cursor: pointer;
 		text-align: center;
 		img{
+			transition: all 0.3s ease;
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
@@ -646,7 +647,9 @@ ul{
 		&:hover{
 			.movies__poster{
 				transform: scale(1.05);
-				box-shadow: 0px 0px 25px 7px rgba(0,0,0,0.64);
+				img{
+					box-shadow: 0px 0px 25px 7px rgba(0,0,0,0.64);
+				}
 			}
 		}
 		a, a:hover{
@@ -658,15 +661,12 @@ ul{
 		@media (max-width: 998px) {
 			flex: 0 1 25%;
 		}
-		@media (max-width: 768px) {
+		@media (max-width: 600px) {
 			flex: 0 1 40%;
 		}
-		@media (max-width: 425px) {
-			flex: 0 1 100%;
+		@media (max-width: 370px) {
+			flex: 0 1 70%;
 		}
-	}
-	.slick-list{
-		overflow: visible;
 	}
 	.slick-slider{
 		&:hover{
@@ -676,6 +676,25 @@ ul{
 			.slick-next:not(.slick-disabled){
 				opacity: 1;
 			}
+		}
+	}
+	.slick-list{
+		overflow: visible;
+	}
+	//.slick-track {
+	//	display: flex;
+	//	max-height: 350px;
+	//}
+	//.slick-slide{
+	//	height: auto; 
+	//	flex: 1;
+	//	& > div{
+	//		height: 100%;
+	//	}
+	//}
+	@media (max-width: 550px) {
+		.slick-slide{
+			max-width: 200px;
 		}
 	}
 	.slick-arrow{
@@ -830,6 +849,10 @@ ul{
 	}
 }
 .seasons-overview{
+	.slick-slide{
+		max-width: 300px;
+		min-width: 220px;
+	}
 	&__img{
 		width: 100%;
 		height: 100%;
@@ -841,7 +864,7 @@ ul{
 	}
 	&__no-img{
 		background: $graphitic;
-		padding: 22.222% 0;
+		padding: 20% 0;
 	}
 	&__btn{
 		transition: all 0.3s ease;

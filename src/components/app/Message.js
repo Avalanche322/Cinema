@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { hideError } from "../../redux/actions";
@@ -22,4 +23,4 @@ const Message = ({text}) => {
 	);
 }
  
-export default Message;
+export default memo(Message);

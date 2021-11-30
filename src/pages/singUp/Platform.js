@@ -5,20 +5,24 @@ import { Button, Form, Alert, Table, Spinner, Container } from "react-bootstrap"
 import fullLogo from '../../img/full-logo.png';
 import banner from "../../img/banner.webp";
 import { useDispatch, useSelector } from "react-redux";
-import { changeSettings } from "../../redux/actions";
+import { changeSettings, uploadPlans } from "../../redux/actions";
 
 const Platform = () => {
 	const dispatch = useDispatch();
-	const plan = useSelector(state => state.user.settings?.plan);
+	const currentPlan = useSelector(state => state.user.settings?.plan);
 	const plans = useSelector(state => state.user.plans);
 	const loading = useSelector(state => state.app.loading);
 	const error = useSelector(state => state.app.error);
-	const [selectPlan, setSelectPlan] = useState(plan ?? plans[plans.length - 2]);
+	const [selectPlan, setSelectPlan] = useState(currentPlan ?? plans[plans.length - 2]);
 	const history = useHistory();
 	useEffect(() => {
 		// title for page
 		document.title = "Choose Plan | Cinema HD"
 	}, []);
+	useEffect(() => {
+		dispatch(uploadPlans());
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 	async function handleSubmit(e){
 		e.preventDefault();
 		dispatch(changeSettings({plan: selectPlan}));
@@ -30,7 +34,7 @@ const Platform = () => {
 	};
 	return (
 		<Container fluid='md'>
-			<div className="authentication platform min-vh-100 d-flex justify-content-center align-items-center">
+			{plans && <div className="authentication platform min-vh-100 d-flex justify-content-center align-items-center">
 				<div className="platform__body authentication__body p-4 rounded-3 position-relative">
 					<div className="mb-4">
 							<div className="d-flex">
@@ -141,7 +145,7 @@ const Platform = () => {
 					<img src={banner} className="h-100 w-100" alt="banner" />
 					<div className="_ibg__shadow position-absolute w-100 h-100 top-0 start-0"></div>
 				</div>
-			</div>
+			</div>}
 		</Container>
 	);
 }

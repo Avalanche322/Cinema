@@ -8,6 +8,7 @@ import MoviePoster from "./MoviePoster";
 import OverviewMovie from '../../pages/OverviewMovie';
 import OverviewTv from "../../pages/OverviewTv";
 import PrivateRoute from "../PrivateRoute";
+import { memo } from "react";
 
 const ListMovies = ({content}) => {
 	const title = content.title;
@@ -45,14 +46,7 @@ const ListMovies = ({content}) => {
           }
         },
 		  {
-         breakpoint: 670,
-         settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-          }
-        },
-		  {
-         breakpoint: 450,
+         breakpoint: 550,
          settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -108,7 +102,7 @@ const ListMovies = ({content}) => {
 										typeContent={content.typeContent} />
 							)
 						})}
-						<div className="movies__show-all show-all-movies rounded d-flex align-items-center justify-content-center">
+						<div className="movies__show-all show-all-movies rounded d-flex align-items-center justify-content-center h-100">
 							<Link to={`/contents/${content.categoryUrl}`} className="d-flex flex-column align-items-center">
 								<BsArrowRight className="show-all-movies__arrow rounded-circle p-2 mb-1"/>
 								<span className="white-60 show-all-movies__text">Show all</span>
@@ -131,4 +125,4 @@ const ListMovies = ({content}) => {
 	);
 }
  
-export default ListMovies;
+export default memo(ListMovies);

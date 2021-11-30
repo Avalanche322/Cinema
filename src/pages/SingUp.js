@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { singup, singInWithGoogle } from "../redux/actions"
 import fullLogo from '../img/full-logo.png';
 import banner from "../img/banner.webp";
+import { memo } from "react";
 
 const SingUp = () => {
 	const [email, setEmail] = useState('');
@@ -120,4 +121,4 @@ const SingUp = () => {
 	);
 }
  
-export default (SingUp);
+export default memo(SingUp);

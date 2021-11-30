@@ -8,6 +8,7 @@ import ChangePass from "./Settings/ChangePass";
 import DeleteAccount from "./Settings/DeleteAccount";
 import Plan from "./Settings/Plan";
 import Social from "./Settings/Social";
+import { memo } from "react";
 
 const Settings = () => {
 	return (
@@ -76,4 +77,4 @@ const Settings = () => {
 	);
 }
  
-export default Settings;
+export default memo(Settings);

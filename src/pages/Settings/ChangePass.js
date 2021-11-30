@@ -1,6 +1,6 @@
 import {Form, Button, Alert, InputGroup, Spinner } from 'react-bootstrap'
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { BiShow, BiHide } from 'react-icons/all';
 import { changePassword, showError } from '../../redux/actions';
@@ -98,4 +98,4 @@ const ChangePass = () => {
 	);
 }
  
-export default ChangePass;
+export default memo(ChangePass);

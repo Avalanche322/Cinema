@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { Button, Form, InputGroup, Spinner } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { BiHide, BiShow } from 'react-icons/all';
@@ -50,4 +50,4 @@ const DeleteAccount = () => {
 	);
 }
  
-export default DeleteAccount;
+export default memo(DeleteAccount);

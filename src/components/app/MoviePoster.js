@@ -15,21 +15,20 @@ const MoviePoster = ({content, categoryUrl, typeContent}) => {
 			<Link to={{
 				pathname: path,
 				state: {prevLocation: url}
-			}} onClick={() => dispatch(searchMovieById(content.id, typeContent))}>
-				<div className="position-relative movies__poster mb-3">
-					<img 
-						className="rounded"
-						src={ content.poster_path 
-							?'https://image.tmdb.org/t/p/w200' + content.poster_path
-							: 'https://via.placeholder.com/135x200/1f1f1f/fff?text=image+not+found'} 
-						loading='lazy'
-						alt={content.title} />
-					<span 
-						className="position-absolute top-0 start-0 mt-2 ms-2 movies__poster-average rounded px-2"
-						>{content.vote_average.toFixed(1)}
-					</span>
-				</div>
-				<h6 className="lh-sm">{typeContent === 'movie' ? content.title: content.name}</h6>
+			}} onClick={() => dispatch(searchMovieById(content.id, typeContent))}
+				className="position-relative movies__poster mb-3 d-block">
+				<img 
+					className="rounded"
+					src={ content.poster_path 
+						?'https://image.tmdb.org/t/p/w200' + content.poster_path
+						: 'https://via.placeholder.com/135x200/1f1f1f/fff?text=image+not+found'} 
+					loading='lazy'
+					alt={content.title} />
+				<span 
+					className="position-absolute top-0 start-0 mt-2 ms-2 movies__poster-average rounded px-2"
+					>{content.vote_average.toFixed(1)}
+				</span>
+				<h6 className="lh-sm mt-2">{typeContent === 'movie' ? content.title: content.name}</h6>
 			</Link>
 		</div>
 	);

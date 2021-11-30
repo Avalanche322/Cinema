@@ -2,6 +2,7 @@ import ReactPlayer from "react-player";
 import { FaTimes } from "react-icons/all";
 import { useSelector } from "react-redux";
 import Loader from "./Loader";
+import { memo } from "react";
 
 const Cinema = ({url, close}) => {
 	const loading = useSelector(state => state.app.loading);
@@ -20,4 +21,4 @@ const Cinema = ({url, close}) => {
 	);
 }
  
-export default Cinema;
+export default memo(Cinema);

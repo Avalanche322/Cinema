@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, memo, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -42,4 +42,4 @@ const Favorite = () => {
 	);
 }
  
-export default Favorite;
+export default memo(Favorite);

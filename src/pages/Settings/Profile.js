@@ -1,5 +1,5 @@
 import {Button} from "react-bootstrap";
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import profileImg from '../../img/user.svg'
@@ -78,4 +78,4 @@ const Profile = () => {
 	);
 }
  
-export default Profile;
+export default memo(Profile);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Spinner, Form, Alert } from 'react-bootstrap'
 import { uploadSettings } from "../../redux/actions";
@@ -89,4 +89,4 @@ const Payment = () => {
 	);
 }
  
-export default Payment;
+export default memo(Payment);

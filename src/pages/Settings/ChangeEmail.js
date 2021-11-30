@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Alert, Form, InputGroup, Button, Spinner } from 'react-bootstrap'
-import { useState } from "react";
+import { memo, useState } from "react";
 import { BiHide, BiShow } from 'react-icons/all'
 import { useDispatch } from "react-redux";
 import { changeEmail } from "../../redux/actions";
@@ -60,4 +60,4 @@ const ChangeEmail = () => {
 	);
 }
  
-export default ChangeEmail;
+export default memo(ChangeEmail);

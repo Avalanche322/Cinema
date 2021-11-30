@@ -11745,6 +11745,7 @@ ul {
   text-align: center;
 }
 .movies__poster img {
+  transition: all 0.3s ease;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -11757,6 +11758,8 @@ ul {
 }
 .movies__poster-block:hover .movies__poster {
   transform: scale(1.05);
+}
+.movies__poster-block:hover .movies__poster img {
   box-shadow: 0px 0px 25px 7px rgba(0, 0, 0, 0.64);
 }
 .movies__poster-block a, .movies__poster-block a:hover {
@@ -11772,24 +11775,29 @@ ul {
     flex: 0 1 25%;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .movies__poster-block {
     flex: 0 1 40%;
   }
 }
-@media (max-width: 425px) {
+@media (max-width: 370px) {
   .movies__poster-block {
-    flex: 0 1 100%;
+    flex: 0 1 70%;
   }
-}
-.movies .slick-list {
-  overflow: visible;
 }
 .movies .slick-slider:hover .slick-prev:not(.slick-disabled) {
   opacity: 1;
 }
 .movies .slick-slider:hover .slick-next:not(.slick-disabled) {
   opacity: 1;
+}
+.movies .slick-list {
+  overflow: visible;
+}
+@media (max-width: 550px) {
+  .movies .slick-slide {
+    max-width: 200px;
+  }
 }
 .movies .slick-arrow {
   position: relative;
@@ -11941,6 +11949,10 @@ ul {
   font-size: 44px;
 }
 
+.seasons-overview .slick-slide {
+  max-width: 300px;
+  min-width: 220px;
+}
 .seasons-overview__img {
   width: 100%;
   height: 100%;
@@ -11952,7 +11964,7 @@ ul {
 }
 .seasons-overview__no-img {
   background: #1f1f1f;
-  padding: 22.222% 0;
+  padding: 20% 0;
 }
 .seasons-overview__btn {
   transition: all 0.3s ease;

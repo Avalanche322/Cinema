@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { useParams } from "react-router";
 import OverviewMovie from "./OverviewMovie";
 import OverviewTv from "./OverviewTv";
@@ -11,4 +12,4 @@ const Movie = () => {
 	);
 }
  
-export default Movie;
+export default memo(Movie);

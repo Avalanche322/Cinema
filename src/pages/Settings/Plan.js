@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Alert, Table, Spinner, Button } from 'react-bootstrap';
-import React, { useState } from 'react';
-import { uploadSettings } from "../../redux/actions";
+import React, { memo, useEffect, useState } from 'react';
+import { uploadSettings, uploadPlans } from "../../redux/actions";
 import { BiCheck } from 'react-icons/all';
 
 const Plan = () => {
@@ -12,8 +12,11 @@ const Plan = () => {
 	const settings = useSelector(state => state.user.settings);
 	const user = useSelector(state => state.user.user);
 	const message = useSelector(state => state.app.message);
-	const [selectPlan, setSelectPlan] = useState(plan ?? plans[plans.length - 1]);
-	console.log(plans);
+	const [selectPlan, setSelectPlan] = useState(plan ?? plans[plans.length - 2]);
+	useEffect(() => {
+		dispatch(uploadPlans());
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 	async function handleSubmit(e){
 		e.preventDefault();
 		dispatch(uploadSettings({ ...settings ,plan: selectPlan}, user))
@@ -105,4 +108,4 @@ const Plan = () => {
 	);
 }
  
-export default Plan;
+export default memo(Plan);

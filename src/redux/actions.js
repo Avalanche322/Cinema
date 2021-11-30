@@ -564,8 +564,10 @@ export function unsubscribe() {
 			if(user){
 				dispatch({type: INIT_USER, payload: user});
 				localStorage.setItem('user', JSON.stringify(user)); // set local user
-				dispatch(fetchData(user));
-				dispatch(uploadPlans());
+				const settings = JSON.parse(localStorage.getItem('settings'));
+				if(settings?.sing_in){
+					dispatch(fetchData(user));
+				}
 			} else{
 				dispatch({type: INIT_USER, payload: {}});
 				dispatch({type: CHANGE_USER_SETTINGS, payload: {}});

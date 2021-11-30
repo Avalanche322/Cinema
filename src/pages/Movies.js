@@ -44,7 +44,6 @@ const Movies = () => {
 					loader={<Loader/>}
 				>
 					{dataContent.map(item => {
-						console.log(item);
 						return (
 								<Fragment key={item.id} >
 								<MoviePoster 

@@ -1,6 +1,6 @@
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { useHistory } from 'react-router';
 import banner from '../img/banner.webp';
 import fullLogo from '../img/full-logo.png'
@@ -60,4 +60,4 @@ const ForgotPassword = () => {
 	);
 }
  
-export default ForgotPassword;
+export default memo(ForgotPassword);

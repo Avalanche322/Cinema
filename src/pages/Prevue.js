@@ -8,6 +8,7 @@ import tvVideo from '../video/our-story/our-story-tv.gif';
 import desktopVideo from '../video/our-story/our-story-desktop.gif';
 import mobileVideo from '../video/our-story/our-story-mobile.gif';
 import { useSelector } from "react-redux";
+import { memo } from "react";
 
 const Prevue = () => {
 	document.title = `Cinema HD`;
@@ -159,4 +160,4 @@ const Prevue = () => {
 	);
 }
  
-export default Prevue;
+export default memo(Prevue);

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Button, Alert } from "react-bootstrap";
 import { FcGoogle } from 'react-icons/all';
 import { useDispatch, useSelector } from "react-redux";
@@ -40,4 +41,4 @@ const Social = () => {
 	);
 }
  
-export default Social;
+export default memo(Social);
