@@ -11295,6 +11295,12 @@ ul {
   height: 50px;
   object-fit: cover;
 }
+@media (max-width: 768px) {
+  .profile__avatar {
+    width: 40px;
+    height: 40px;
+  }
+}
 
 .header {
   border-bottom: 1px solid #2a2a2a;

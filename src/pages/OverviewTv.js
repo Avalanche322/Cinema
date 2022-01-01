@@ -251,7 +251,7 @@ const OverviewTv = () => {
 													<div className="seasons-overview__img">
 														<img 
 															className="rounded"
-															src={'https://image.tmdb.org/t/p/w200' + episod.still_path} 
+															src={'https://image.tmdb.org/t/p/original' + episod.still_path} 
 															loading='lazy'
 															alt={episod.name} />
 													</div>

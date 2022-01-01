@@ -20,7 +20,7 @@ const MoviePoster = ({content, categoryUrl, typeContent}) => {
 				<img 
 					className="rounded"
 					src={ content.poster_path 
-						?'https://image.tmdb.org/t/p/w200' + content.poster_path
+						?'https://image.tmdb.org/t/p/original' + content.poster_path
 						: 'https://via.placeholder.com/135x200/1f1f1f/fff?text=image+not+found'} 
 					loading='lazy'
 					alt={content.title} />

@@ -197,7 +197,7 @@ const Header = () => {
 														<img 
 															className='search-header-result__img me-3'
 															src={content.poster_path 
-															?'https://image.tmdb.org/t/p/w200' + content.poster_path
+															?'https://image.tmdb.org/t/p/original' + content.poster_path
 															: 'https://via.placeholder.com/135x200/1f1f1f/fff?text=image+not+found'}  
 															alt={content.title} />
 														<div>
