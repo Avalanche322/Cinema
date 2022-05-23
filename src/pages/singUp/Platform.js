@@ -21,8 +21,12 @@ const Platform = () => {
 	}, []);
 	useEffect(() => {
 		dispatch(uploadPlans());
+		//setSelectPlan(plans[2])
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
+	useEffect(() => {
+		setSelectPlan(plans[2] ?? {id: 2})
+	}, [plans])
 	async function handleSubmit(e){
 		e.preventDefault();
 		dispatch(changeSettings({plan: selectPlan}));
