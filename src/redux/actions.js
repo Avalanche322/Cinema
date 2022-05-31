@@ -392,9 +392,9 @@ export function uploadFavorite(movie, user){
 		try{
 			dispatch({type: HIDE_ERROR});
 			dispatch({type: SHOW_LOADER});
-			const favoriteRef = firebase.database().ref(`users/${user.uid}/favorite`);
-			const insertData = await favoriteRef.push(movie);
-			movie.db_id = insertData.key;
+			const favoriteRef = firebase.database().ref(`users/${user.uid}/favorite`).child(movie.id);
+			await favoriteRef.set({id: movie.id});
+			//movie.db_id = insertData.key;
 			dispatch({type: UPLOAD_MOVIES_FAVORITE, payload: [movie]});
 			dispatch({type: HIDE_LOADER});
 		} catch(e){
@@ -408,7 +408,7 @@ export function removeFavorite(movie, user){
 		try{
 			dispatch({type: HIDE_ERROR});
 			dispatch({type: SHOW_LOADER});
-			const favoriteRef = firebase.database().ref(`users/${user.uid}/favorite`).child(movie.db_id);
+			const favoriteRef = firebase.database().ref(`users/${user.uid}/favorite`).child(movie.id);
 			await favoriteRef.remove();
 			dispatch({type: REMOVE_MOVIES_FAVORITE, payload: movie});
 			dispatch({type: HIDE_LOADER});
@@ -537,12 +537,16 @@ function fetchData(user){
 			}
 			// Favorite
 			const favoriteRef = firebase.database().ref(`users/${user.uid}/favorite`);
-			await favoriteRef.once('value', (snapshot) => {
-				const favorite = snapshot.val();
-				if(favorite){
+			await favoriteRef.once('value', async (snapshot) => {
+				const favorites = snapshot.val();
+				let movie = {};
+				if(favorites){
 					const favoriteAll = [];
-					for (const id in favorite) {
-						favoriteAll.push({db_id: id, ...favorite[id]});
+					for (const id in favorites) {
+						movie = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_CINEMA_API_KEY}&language=en-US&page=1`);
+						moviesData = await movie.json();
+						favoriteAll.push(moviesData);
+						console.log(favoriteAll);
 					}
 					dispatch({type: UPLOAD_MOVIES_FAVORITE, payload: favoriteAll});
 				}
